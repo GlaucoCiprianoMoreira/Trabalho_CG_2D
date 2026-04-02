@@ -45,7 +45,17 @@
 ---
 
 
-## Project Contributors
-  * [David](https://github.com/HumDavid)
-  * [Glauco](https://github.com/GlaucoCiprianoMoreira)
-  * [Guilherme](https://github.com/GuilhermeGasparr)
+<h2 align="center">Project Contributors</h2>
+  <p align="center">
+  <a href="https://github.com/HumDavid">
+    <img src="https://github.com/HumDavid.png" width="100" />
+  </a>
+
+  <a href="https://github.com/GlaucoCiprianoMoreira">
+    <img src="https://github.com/GlaucoCiprianoMoreira.png" width="100" />
+  </a>
+
+  <a href="https://github.com/GuilhermeGasparr">
+    <img src="https://github.com/GuilhermeGasparr.png" width="100" />
+  </a>
+</p>
