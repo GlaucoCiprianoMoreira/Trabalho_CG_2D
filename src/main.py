@@ -1,7 +1,7 @@
 import sys
 import pygame
 
-from engine.raster import setPixel
+from engine.SetPixel import setPixel
 
 class Game:
     def __init__(self):
