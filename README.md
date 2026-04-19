@@ -19,6 +19,40 @@
 ---
 
 
+## Color Palette
+
+<table>
+  <tr>
+    <td align="center">
+      <img src="https://placehold.co/100x100/081820/081820.png" width="100" height="100" /><br>
+      <code>darkest</code><br>
+      <b>Hex:</b> #081820<br>
+      <b>RGB:</b> (8, 24, 32)
+    </td>
+    <td align="center">
+      <img src="https://placehold.co/100x100/346856/346856.png" width="100" height="100" /><br>
+      <code>dark</code><br>
+      <b>Hex:</b> #346856<br>
+      <b>RGB:</b> (52, 104, 86)
+    </td>
+    <td align="center">
+      <img src="https://placehold.co/100x100/88c070/88c070.png" width="100" height="100" /><br>
+      <code>light</code><br>
+      <b>Hex:</b> #88c070<br>
+      <b>RGB:</b> (136, 192, 112)
+    </td>
+    <td align="center">
+      <img src="https://placehold.co/100x100/e0f8d0/e0f8d0.png" width="100" height="100" /><br>
+      <code>lightest</code><br>
+      <b>Hex:</b> #e0f8d0<br>
+      <b>RGB:</b> (224, 248, 208)
+    </td>
+  </tr>
+</table>
+
+---
+
+
 ## Game Concepts:
   * Explanation about the game concepts, artistic inspirations, mechanics, difficulty level and others.
 
