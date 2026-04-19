@@ -1,6 +1,6 @@
 from engine.SetPixel import setPixel
 
-def floodFillIterative(surface, x, y, filling_color, edge_color):
+def boundaryFillIterative(surface, x, y, fill_color, boundary_color):
     width = surface.get_width()
     height = surface.get_height()
 
@@ -14,17 +14,17 @@ def floodFillIterative(surface, x, y, filling_color, edge_color):
 
         current_color = surface.get_at((x, y))[:3]
 
-        if current_color == edge_color or current_color == filling_color:
+        if current_color == boundary_color or current_color == fill_color:
             continue
 
-        setPixel(surface, x, y, filling_color)
+        setPixel(surface, x, y, fill_color)
 
         stack.append((x + 1, y))
         stack.append((x - 1, y))
         stack.append((x, y + 1))
         stack.append((x, y - 1))
 
-def floodFill(surface, x, y, filling_color, edge_color):
+def boundaryFill(surface, x, y, fill_color, boundary_color):
     width = surface.get_width()
     height = surface.get_height()
 
@@ -33,12 +33,12 @@ def floodFill(surface, x, y, filling_color, edge_color):
 
     current_color = surface.get_at((x, y))[:3]
 
-    if current_color == edge_color or current_color == filling_color:
+    if current_color == boundary_color or current_color == fill_color:
         return
 
-    setPixel(surface, x, y, filling_color)
+    setPixel(surface, x, y, fill_color)
 
-    floodFill(surface, x + 1, y, filling_color, edge_color)
-    floodFill(surface, x - 1, y, filling_color, edge_color)
-    floodFill(surface, x, y + 1, filling_color, edge_color)
-    floodFill(surface, x, y - 1, filling_color, edge_color)
+    boundaryFill(surface, x + 1, y, fill_color, boundary_color)
+    boundaryFill(surface, x - 1, y, fill_color, boundary_color)
+    boundaryFill(surface, x, y + 1, fill_color, boundary_color)
+    boundaryFill(surface, x, y - 1, fill_color, boundary_color)
