@@ -5,6 +5,15 @@
 
 ---
 
+## Technologies
+### Python Version
+
+```
+3.11
+```
+
+---
+
 
 ## The main objective of the project
   * Explanation about the subject of Computer Graphics (setpixel, raster, scanline and others).
