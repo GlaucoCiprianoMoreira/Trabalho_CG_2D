@@ -8,9 +8,9 @@ class Game:
     def __init__(self):
         pygame.init()
         pygame.display.set_caption("Diamond Rush")
-        GAME_W, GAME_H, SCALE = 160, 144, 4
+        GAME_W, GAME_H, SCALE = 160, 144, 5
         self.WIN_W, self.WIN_H = GAME_W * SCALE, GAME_H * SCALE
-        self.window = pygame.display.set_mode((self.WIN_W, self.WIN_H))
+        self.window = pygame.display.set_mode((self.WIN_W, self.WIN_H), pygame.FULLSCREEN)
         self.screen = pygame.Surface((GAME_W, GAME_H))
 
     def run(self):
