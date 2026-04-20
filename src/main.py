@@ -17,8 +17,6 @@ class Game:
         running = True
         while running:
             for event in pygame.event.get():
-               for i in range(0, self.width, 16):
-                   draw_sprite(self.screen, self.rock, i, 300)
                if event.type == pygame.QUIT:
                     running = False
 
