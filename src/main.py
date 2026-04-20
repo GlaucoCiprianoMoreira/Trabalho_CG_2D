@@ -10,8 +10,6 @@ class Game:
         pygame.display.set_caption("Diamond Rush")
         self.width, self.height = 800, 600
         self.screen = pygame.display.set_mode((self.width, self.height))
-        self.rock = load_png_matrix("assets/rock/rock_01.png")
-        self.player = load_png_matrix("assets/player/player_01.png")
 
     def run(self):
         running = True
