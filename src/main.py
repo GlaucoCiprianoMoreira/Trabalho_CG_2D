@@ -20,7 +20,7 @@ class Game:
             self.window.blit(scaled, (0, 0))
 
             for event in pygame.event.get():
-                if event.type == pygame.QUIT:
+               if event.type == pygame.QUIT:
                     running = False
                     
             pygame.display.flip()
