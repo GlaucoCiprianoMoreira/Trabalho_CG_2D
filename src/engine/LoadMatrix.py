@@ -6,21 +6,21 @@ def load_png_matrix(path):
     img = pygame.image.load(path).convert_alpha()
     w, h = img.get_width(), img.get_height()
 
-    matriz = np.zeros((h, w, 4), dtype=np.uint8)
+    matrix = np.zeros((h, w, 4), dtype=np.uint8)
 
     for y in range(h):
         for x in range(w):
-            matriz[y][x] = img.get_at((x, y))
+            matrix[y][x] = img.get_at((x, y))
 
-    return matriz
+    return matrix
 
 
-def draw_sprite(surface, matriz, posX, posY):
-    h, w, _ = matriz.shape
+def draw_sprite(surface, matrix, posX, posY):
+    h, w, _ = matrix.shape
 
     for y in range(h):
         for x in range(w):
-            color = matriz[y][x]
+            color = matrix[y][x]
 
             if color[3] == 0:
                 continue
