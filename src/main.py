@@ -1,8 +1,6 @@
 import sys
 import pygame
-
 from engine.SetPixel import setPixel
-
 class Game:
     def __init__(self):
         pygame.init()
