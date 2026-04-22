@@ -1,3 +1,5 @@
+from loader.LoadMatrix import load_png_matrix
+
 DARKEST  = (8, 24, 32)
 DARK     = (52, 104, 86)
 LIGHT    = (136, 192, 112)
@@ -43,3 +45,9 @@ FONT = {
     '9': ["11111", "10001", "11111", "00001", "11111"],
     ' ': ["00000", "00000", "00000", "00000", "00000"],
 }
+
+def load_tiles():
+    return {
+        1: load_png_matrix("assets/rock/rock_01.png"),
+        2: load_png_matrix("assets/floor/floor_01.png"),
+    }

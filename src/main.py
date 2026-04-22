@@ -13,6 +13,7 @@ class Game:
         GAME_W, GAME_H, SCALE = 160, 144, 5
         self.WIN_W, self.WIN_H = GAME_W * SCALE, GAME_H * SCALE
         self.window = pygame.display.set_mode((self.WIN_W, self.WIN_H))
+        self.window = pygame.display.set_mode((self.WIN_W, self.WIN_H))
         self.screen = pygame.Surface((GAME_W, GAME_H))
 
         self.manager = SceneManager()
