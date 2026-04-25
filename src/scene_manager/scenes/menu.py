@@ -36,23 +36,32 @@ class MenuScene(Scene):
                 self.n_button -= 1
 
             if event.key in (pygame.K_RETURN, pygame.K_SPACE):
-                if self.open_config:
-                    if self.n_button == 2:
-                        config.sound_on = not config.sound_on
-                    elif self.n_button == 1:
-                        config.music_on = not config.music_on
-                    elif self.n_button == 0:
-                        self.n_button = 1
-                        self.open_config = False
-                else:
-                    if self.n_button == 2:
+                if self.n_button == 2:
+                    # BOTÃO DE PLAY
+                    if not self.open_config:
                         self.manager.go_to("cutscene")
-                    elif self.n_button == 1:
+                    # BOTÃO DE SOUND ON/OFF
+                    else:
+                        config.sound_on = not config.sound_on
+
+                elif self.n_button == 1:
+                    # BOTÃO DE CONFIG
+                    if not self.open_config:
                         self.open_config = True
                         self.n_button = 2
-                    elif self.n_button == 0:
+                    # BOTÃO DE MUSIC ON/OFF
+                    else:
+                        config.music_on = not config.music_on
+
+                elif self.n_button == 0:
+                    # BOTÃO DE QUIT
+                    if not self.open_config:
                         pygame.quit()
                         quit()
+                    # BOTÃO DE BACK
+                    else:
+                        self.n_button = 1
+                        self.open_config = False
 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
