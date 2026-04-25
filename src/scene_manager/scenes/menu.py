@@ -48,7 +48,7 @@ class MenuScene(Scene):
                     # BOTÃO DE CONFIG
                     if not self.open_config:
                         self.open_config = True
-                        self.n_button = 2
+                        self.n_button = 0
                     # BOTÃO DE MUSIC ON/OFF
                     else:
                         config.music_on = not config.music_on
