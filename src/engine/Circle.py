@@ -1,4 +1,5 @@
 from engine.SetPixel import setPixel
+import math
 
 def Circle(surface, xc, yc, r, color):
     x =0
@@ -24,3 +25,14 @@ def Circle(surface, xc, yc, r, color):
         else:
             p = p + 4 * x + 6
         drawCirclePoints(xc, yc, x, y)
+
+def fill_circle(surface, xc, yc, r, color):
+    for y in range(yc - r, yc + r + 1):
+        dy = y - yc
+        dx = int(math.sqrt(r*r - dy*dy))
+
+        x_start = xc - dx
+        x_end   = xc + dx
+
+        for x in range(x_start, x_end + 1):
+            setPixel(surface, x, y, color)
