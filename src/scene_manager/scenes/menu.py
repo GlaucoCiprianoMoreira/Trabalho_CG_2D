@@ -23,7 +23,6 @@ class MenuScene(Scene):
         self.n_button_max = 2
         self.open_config = False
 
-        self._bg_cache = pygame.Surface((160, 144))
         self.angulo = 0
         self.t = math.radians(self.angulo)
         self.clock = pygame.Clock()
@@ -126,25 +125,20 @@ class MenuScene(Scene):
 
 
     def draw(self, screen):
-        # Fundo + decoração: renderiza UMA vez e guarda em cache
-        #if self._bg_cache is None:
-
         self.dt = self.clock.tick(60) / 1000
         self.t += self.dt
         self.angulo += self.dt
         self.angulo %= (2 * math.pi)
 
-        self._draw_gradient(self._bg_cache)
-        self._draw_stalactites(self._bg_cache)
+        self._draw_gradient(screen)
+        self._draw_stalactites(screen)
 
-        self._draw_airbone_dust(self._bg_cache, 30, 120, 4, mode=1)
-        self._draw_airbone_dust(self._bg_cache, 140, 40, 5, mode=2)
-        self._draw_airbone_dust(self._bg_cache, 115, 80, 2, mode=1, dir=-1)
-        self._draw_airbone_dust(self._bg_cache, 40, 65, 6, mode=2, dir=-1)
+        self._draw_airbone_dust(screen, 30, 120, 4, mode=1)
+        self._draw_airbone_dust(screen, 140, 40, 5, mode=2)
+        self._draw_airbone_dust(screen, 115, 80, 2, mode=1, dir=-1)
+        self._draw_airbone_dust(screen, 40, 65, 6, mode=2, dir=-1)
         # Título
-        draw_text(self._bg_cache, "cave game", 80, 5, LIGHTEST, scale=2, mode="center")
-
-        screen.blit(self._bg_cache, (0, 0))  # cola o fundo
+        draw_text(screen, "cave game", 80, 5, LIGHTEST, scale=2, mode="center")
 
         # Botões: redesenhados todo frame (estado de seleção muda)
         if self.open_config:

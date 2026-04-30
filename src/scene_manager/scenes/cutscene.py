@@ -1,34 +1,29 @@
 import pygame
 
+from engine.HUD.text import draw_text
+from engine.LoadMatrix import load_png_matrix, draw_sprite
+
+from constants import LIGHTEST
+
 from scene_manager.scene import Scene
 
 class CutsceneScene(Scene):
     def __init__(self, manager):
         self.manager = manager
-        self.n_frame = 0
-        self.frames = [
-            "o homem anda pelos corredores",
-            "ele está destraído com seu celular",
-            "mandando mensagens para o seu amor",
-            "ele não percebeu que havia um buraco em sua frente...",
-            "ele cai",
-            "tudo escuro",
-            "ele acorda e não vê nada além de uma lamparina iluminando um esqueleto e uma picareta",
-            "ele pega a lamparina e a picareta",
-            "'preciso sair daqui'"
-        ]
+        self.n_frame = 1
     
     def handle_event(self, event):
         #n_frame = 0
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE:
+            if event.key in (pygame.K_SPACE, pygame.K_RETURN):
                 self.n_frame += 1
-                if self.n_frame < 10: print(self.frames[self.n_frame-1])
         if self.n_frame == 10:
+            self.n_frame = 1
             self.manager.go_to("gameplay")
-            print("iniciando jogo...")
     
     def draw(self, screen):
-        pass
+        path = "assets/cutscene/frame-scene-0" + str(self.n_frame) + ".png"
+        matrix = load_png_matrix(path)
+        draw_sprite(screen, matrix, 0, 0)
 
-    
+        draw_text(screen, "SPACE I ENTER", 80, 10, LIGHTEST, 1, mode="center")
