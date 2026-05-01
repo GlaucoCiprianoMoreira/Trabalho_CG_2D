@@ -27,19 +27,19 @@ class GameplayScene(Scene):
                       load_png_matrix("assets/player/player_direita3.png"), load_png_matrix("assets/player/player_direita4.png")],
         }
         
-        self.player = Player(100, 100, player_sprites)
+        self.player = Player(16, 16, player_sprites)
     
     def handle_event(self, event):
         pass
 
     def update(self, dt):
         keys = pygame.key.get_pressed()
-        self.player.update(dt, keys)
+        self.player.update(dt, keys, self.level)
     
     def draw(self, screen):
         screen.fill((0, 0, 0))
-        camera_x = self.player.x - (self.GAME_W / 2)
-        camera_y = self.player.y - (self.GAME_H / 2)
+        camera_x = (self.player.x + 8) - (self.GAME_W / 2)
+        camera_y = (self.player.y + 8) - (self.GAME_H / 2)
         draw_level(screen, self.level, self.tiles, camera_x, camera_y)
         current_sprite = self.player.get_current_sprite()
         centro_x = int((self.GAME_W / 2) - 8) # Subtrai metade da largura do sprite para centralizar
