@@ -1,5 +1,5 @@
 import pygame
-from mechanics.Physics import check_grid_collision
+from mechanics.Physics import check_grid_collision, check_aabb_collision
 from loader.LoadMap import levels
 
 class Player:
@@ -8,6 +8,7 @@ class Player:
         self.x = start_x
         self.y = start_y
         self.speed = 700.0 # Pixels por segundo
+        self.space_pressed = False
         
         self.sprites = sprites_dict
         
@@ -24,7 +25,7 @@ class Player:
         self.offset_x = 2
         self.offset_y = 1
 
-    def update(self, dt, keys, level):
+    def update(self, dt, keys, level, ores):
         self.is_moving = False
         dx = 0
         dy = 0
@@ -50,14 +51,47 @@ class Player:
         # Eixo X
         if dx != 0:
             self.is_moving = True
-            if not check_grid_collision(self.x + dx, self.y, self.hitbox_w, self.hitbox_h, self.offset_x, self.offset_y, level):
-                self.x += dx
+            new_x = self.x + dx
 
+            if not check_grid_collision(new_x, self.y, self.hitbox_w, self.hitbox_h, self.offset_x, self.offset_y, level):
+                hit_ore = False
+                for ore in ores:
+                    hx = new_x + self.offset_x
+                    hy = self.y + self.offset_y
+                    
+                    if check_aabb_collision(hx, hy, self.hitbox_w, self.hitbox_h, ore.x, ore.y, 16, 16):
+                        hit_ore = True
+                        break
+
+                if not hit_ore:
+                    self.x += dx
         # Eixo Y
         if dy != 0:
             self.is_moving = True
-            if not check_grid_collision(self.x, self.y + dy, self.hitbox_w, self.hitbox_h, self.offset_x, self.offset_y, level):
-                self.y += dy
+            new_y = self.y + dy
+            
+            if not check_grid_collision(self.x, new_y, self.hitbox_w, self.hitbox_h, self.offset_x, self.offset_y, level):
+                
+                hit_ore = False
+                for ore in ores:
+                    hx = self.x + self.offset_x
+                    hy = new_y + self.offset_y
+                    
+                    if check_aabb_collision(hx, hy, self.hitbox_w, self.hitbox_h, ore.x, ore.y, 16, 16):
+                        hit_ore = True
+                        break
+                        
+                if not hit_ore:
+                    self.y += dy
+        
+        # Trava para o botão SPACE (Edge Detection)
+        if keys[pygame.K_SPACE]:
+            if not self.space_pressed:
+                self.space_pressed = True
+                self.is_mining = True
+        else:
+            self.space_pressed = False
+            self.is_mining = False
 
         # Lógica de Animação
         if self.is_moving:
@@ -74,3 +108,15 @@ class Player:
     def get_current_sprite(self):
         """Retorna a matriz de pixels correta para o momento atual."""
         return self.sprites[self.direction][self.current_frame]
+    
+    def get_facing_point(self):
+        """Retorna as coordenadas x, y imediatamente à frente do jogador."""
+        px = self.x + 8
+        py = self.y + 8
+        
+        if self.direction == "up": py -= 16
+        elif self.direction == "down": py += 16
+        elif self.direction == "left": px -= 16
+        elif self.direction == "right": px += 16
+            
+        return px, py

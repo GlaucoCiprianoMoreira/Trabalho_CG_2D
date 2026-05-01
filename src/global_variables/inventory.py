@@ -1,0 +1,1 @@
+inventory_ore = 0
