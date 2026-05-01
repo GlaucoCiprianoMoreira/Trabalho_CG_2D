@@ -32,3 +32,21 @@ def rotation(theta):
 
 def new_transformation():
     return identity()
+
+def multiply(A, B):
+    result = [[0,0,0],[0,0,0],[0,0,0]]
+
+    for i in range(3):
+        for j in range(3):
+            for k in range(3):
+                result[i][j] += A[i][k] * B[k][j]
+
+    return result
+
+def apply(point, M):
+    x, y = point
+
+    px = M[0][0]*x + M[0][1]*y + M[0][2]
+    py = M[1][0]*x + M[1][1]*y + M[1][2]
+
+    return int(px), int(py)

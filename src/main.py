@@ -37,7 +37,6 @@ class Game:
 
             self.manager.update(dt)
             self.manager.draw(self.screen)
-
             self.window.blit
             scaled = pygame.transform.scale(self.screen, (self.WIN_W, self.WIN_H))
             self.window.blit(scaled, (0, 0))
