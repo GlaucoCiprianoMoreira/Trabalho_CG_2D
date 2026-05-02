@@ -12,7 +12,10 @@ class CutsceneScene(Scene):
     def __init__(self, manager):
         self.manager = manager
         audio_manager.play_music('space-ii-cutscene')
-        self.n_frame = 1
+        self.n_frame = 0
+        self.time_frame = [2000, 1400, 2000, 1000, 1000, 1000, 3000, 1000, 4000]
+        self.last_time = 0
+        self.clock = pygame.time.Clock()
     
     def handle_event(self, event):
         #n_frame = 0
@@ -38,6 +41,6 @@ class CutsceneScene(Scene):
         self.roll_film(dt)
 
     def draw(self, screen):
-        path = "assets/sprites/cutscene/frame-scene-0" + str(self.n_frame) + ".png"
+        path = "assets/sprites/cutscene/frame-scene-0" + str(self.n_frame + 1) + ".png"
         matrix = load_png_matrix(path)
         draw_sprite(screen, matrix, 0, 0)

@@ -31,7 +31,7 @@ class GameplayScene(Scene):
             "right": [load_png_matrix("assets/sprites/player/player_direita1.png"), load_png_matrix("assets/sprites/player/player_direita2.png"),
                       load_png_matrix("assets/sprites/player/player_direita3.png"), load_png_matrix("assets/sprites/player/player_direita4.png")],
         }
-        self.ore_sprite = load_png_matrix("assets/ore/ore-01.png")
+        self.ore_sprite = load_png_matrix("assets/sprites/ore/ore-01.png")
         
         self.player = Player(16, 16, player_sprites)
         self.ores = []
