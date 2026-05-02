@@ -15,8 +15,17 @@ def get_text_width(text: str, scale=1):
 
     return width
 
-def draw_text(surface, text: str, x, y, color, scale=1, mode="left"):
+def draw_text(surface, text: str, x, y, color, scale=1, mode="left", alpha=1.0):
     """Renderiza string com a fonte bitmap 3×5."""
+    if alpha <= 0.0: 
+        return
+    
+    fade_color = (
+        int(color[0] * alpha),
+        int(color[1] * alpha),
+        int(color[2] * alpha)
+    )
+
     text = text.upper()
 
     if mode != "left":
@@ -37,5 +46,5 @@ def draw_text(surface, text: str, x, y, color, scale=1, mode="left"):
                     base_y = y + row * scale
                     for sy in range(scale):                                     # (y) aplicando um zoom usando escala
                         for sx in range(scale):                                 # (x) aplicando um zoom usando escala
-                            setPixel(surface, base_x + sx, base_y + sy, color)     # desenha
+                            setPixel(surface, base_x + sx, base_y + sy, fade_color)     # desenha
         cx += (len(glyph[0]) + 1) * scale                                       # largura do glyph + espaço

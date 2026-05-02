@@ -4,6 +4,13 @@ from loader.LoadMap import levels
 
 class Player:
     def __init__(self, start_x, start_y, sprites_dict):
+        # Vida
+        self.health = 3
+        self.invincible_timer = 0.0 # Timer de Dano
+        self.is_visible = True      # Controle do Blinking
+
+
+        
         # Posição no Espaço do Mundo
         self.x = start_x
         self.y = start_y
@@ -25,7 +32,13 @@ class Player:
         self.offset_x = 2
         self.offset_y = 1
 
-    def update(self, dt, keys, level, ores):
+    def take_damage(self):
+        if self.invincible_timer <= 0:
+            self.health -= 1
+            self.invincible_timer = 0.2
+            print(f"AAAAAI! Vida restante: {self.health}")
+
+    def update(self, dt, keys, level, solid_entities):
         self.is_moving = False
         dx = 0
         dy = 0
@@ -47,42 +60,31 @@ class Player:
             dx += self.speed * dt
             self.direction = "right"
 
-        # Lógica de Colisão
+        # Lógica de Colisão 
         # Eixo X
         if dx != 0:
             self.is_moving = True
             new_x = self.x + dx
-
             if not check_grid_collision(new_x, self.y, self.hitbox_w, self.hitbox_h, self.offset_x, self.offset_y, level):
-                hit_ore = False
-                for ore in ores:
-                    hx = new_x + self.offset_x
-                    hy = self.y + self.offset_y
-                    
-                    if check_aabb_collision(hx, hy, self.hitbox_w, self.hitbox_h, ore.x, ore.y, 16, 16):
-                        hit_ore = True
+                hit_solid = False
+                for entity in solid_entities:
+                    hx, hy = new_x + self.offset_x, self.y + self.offset_y
+                    if check_aabb_collision(hx, hy, self.hitbox_w, self.hitbox_h, entity.x, entity.y, 16, 16):
+                        hit_solid = True
                         break
-
-                if not hit_ore:
-                    self.x += dx
+                if not hit_solid: self.x += dx
         # Eixo Y
         if dy != 0:
             self.is_moving = True
             new_y = self.y + dy
-            
             if not check_grid_collision(self.x, new_y, self.hitbox_w, self.hitbox_h, self.offset_x, self.offset_y, level):
-                
-                hit_ore = False
-                for ore in ores:
-                    hx = self.x + self.offset_x
-                    hy = new_y + self.offset_y
-                    
-                    if check_aabb_collision(hx, hy, self.hitbox_w, self.hitbox_h, ore.x, ore.y, 16, 16):
-                        hit_ore = True
+                hit_solid = False
+                for entity in solid_entities:
+                    hx, hy = self.x + self.offset_x, new_y + self.offset_y
+                    if check_aabb_collision(hx, hy, self.hitbox_w, self.hitbox_h, entity.x, entity.y, 16, 16):
+                        hit_solid = True
                         break
-                        
-                if not hit_ore:
-                    self.y += dy
+                if not hit_solid: self.y += dy
         
         # Trava para o botão SPACE (Edge Detection)
         if keys[pygame.K_SPACE]:
@@ -104,6 +106,13 @@ class Player:
             # Assumindo que o frame 0 é o personagem parado
             self.current_frame = 0
             self.anim_timer = 0.0
+
+        # Lógica de Invencibilidade
+        if self.invincible_timer > 0:
+            self.invincible_timer -= dt
+            self.is_visible = int(self.invincible_timer * 80) % 2 == 0
+        else:
+            self.is_visible = True
 
     def get_current_sprite(self):
         """Retorna a matriz de pixels correta para o momento atual."""

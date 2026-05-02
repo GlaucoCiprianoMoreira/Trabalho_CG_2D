@@ -22,7 +22,7 @@ class Crystal:
 
     def check_collection(self, player_x, player_y):
         dist = math.hypot((self.world_x) - (player_x + 8), (self.world_y) - (player_y + 8))
-        return dist < 7 # Raio de coleta
+        return dist < 8 # Raio de coleta
 
     def draw(self, screen, camera_x, camera_y):
         anim_angle = self.time * 15.0
