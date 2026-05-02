@@ -17,15 +17,27 @@ class CutsceneScene(Scene):
     def handle_event(self, event):
         #n_frame = 0
         if event.type == pygame.KEYDOWN:
-            if event.key in (pygame.K_SPACE, pygame.K_RETURN):
+            if event.key in (pygame.K_SPACE, pygame.K_RETURN) and self.n_frame > 0:
+                self.n_frame = 0
+                self.manager.go_to("gameplay")
+
+    def roll_film(self, dt):
+        self.last_time += (dt * 100000) / 2
+        
+        if self.last_time >= self.time_frame[self.n_frame]:
+            if self.n_frame < len(self.time_frame) - 1:
                 self.n_frame += 1
-        if self.n_frame == 10:
-            self.n_frame = 1
-            self.manager.go_to("gameplay")
+                self.last_time = 0
+            else:
+                self.n_frame = 0
+                self.manager.go_to("gameplay")
+
+        self.clock.tick(60)
     
+    def update(self, dt):
+        self.roll_film(dt)
+
     def draw(self, screen):
         path = "assets/sprites/cutscene/frame-scene-0" + str(self.n_frame) + ".png"
         matrix = load_png_matrix(path)
         draw_sprite(screen, matrix, 0, 0)
-
-        draw_text(screen, "SPACE I ENTER", 80, 10, LIGHTEST, 1, mode="center")
