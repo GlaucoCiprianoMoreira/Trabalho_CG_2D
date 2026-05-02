@@ -3,12 +3,13 @@ import random
 
 from scene_manager.scene import Scene
 from constants import load_tiles
-from loader.LoadMap import draw_level, levels
+from loader.LoadMap import draw_level, levels, check_ore_trap_chest_tiles
 from loader.LoadMatrix import load_png_matrix, draw_sprite
 from mechanics.Player import Player
 from mechanics.Ore import Ore
 from engine.Crystal import Crystal
 from global_variables import inventory
+from mechanics.Physics import check_trigger
 
 class GameplayScene(Scene):
     def __init__(self, manager):
@@ -29,16 +30,15 @@ class GameplayScene(Scene):
             "right": [load_png_matrix("assets/player/player_direita1.png"), load_png_matrix("assets/player/player_direita2.png"),
                       load_png_matrix("assets/player/player_direita3.png"), load_png_matrix("assets/player/player_direita4.png")],
         }
-        self.ore_sprite = load_png_matrix("assets/ore/ore-01.png")
+        self.ore_sprite, self.trap_sprite = load_png_matrix("assets/ore/ore-01.png"), load_png_matrix("assets/trap/trap.png")
         
         self.player = Player(16, 16, player_sprites)
         self.ores = []
         self.crystals = []
-        for y, row in enumerate(self.level):
-            for x, tile_id in enumerate(row):
-                if tile_id == 2:
-                    self.ores.append(Ore(x * 16, y * 16, self.ore_sprite))
-                    self.level[y][x] = 0
+        self.traps = []
+        #Matriz mapping dos triggers
+        self.trigger_map = [[0 for _ in range(len(self.level[0]))] for _ in range(len(self.level))]
+        self.level, self.ores, self.traps, self.trigger_map = check_ore_trap_chest_tiles(self.level, self.ores, self.traps, self.trigger_map, self.ore_sprite)
     
     def handle_event(self, event):
         pass
@@ -46,6 +46,18 @@ class GameplayScene(Scene):
     def update(self, dt):
         keys = pygame.key.get_pressed()
         self.player.update(dt, keys, self.level, self.ores)
+
+        trigger_id = check_trigger(
+            self.player.x, 
+            self.player.y, 
+            self.player.hitbox_w, 
+            self.player.hitbox_h, 
+            self.player.offset_x, 
+            self.player.offset_y, 
+            self.trigger_map
+        )
+        if trigger_id == 11:
+            self.manager.go_to("dead") #DAVID: Trocar para a cena de morte quando ela for implementada
 
         # --- LÓGICA DE MINERAÇÃO ---
         if self.player.is_mining:
@@ -72,6 +84,10 @@ class GameplayScene(Scene):
         camera_x = (self.player.x + 8) - (self.GAME_W / 2)
         camera_y = (self.player.y + 8) - (self.GAME_H / 2)
         draw_level(screen, self.level, self.tiles, camera_x, camera_y)
+        for trap_x, trap_y in self.traps:
+            screen_x = int(trap_x - camera_x)
+            screen_y = int(trap_y - camera_y)
+            draw_sprite(screen, self.trap_sprite, screen_x, screen_y)
         for ore in self.ores:
             ore.draw(screen, camera_x, camera_y)
         for crystal in self.crystals:
