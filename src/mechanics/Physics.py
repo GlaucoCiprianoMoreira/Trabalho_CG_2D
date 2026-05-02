@@ -81,3 +81,12 @@ def check_interaction(x, y, hitbox_w, hitbox_h, offset_x, offset_y, direction, i
             return tile_id
             
     return None
+
+def check_aabb_collision(px, py, pw, ph, ox, oy, ow, oh):
+    """
+    Verifica matematicamente a intersecção entre dois retângulos AABB.
+    P = Player, O = Objeto (Minério)
+    """
+    if (px < ox + ow) and (px + pw > ox) and (py < oy + oh) and (py + ph > oy):
+        return True
+    return False
