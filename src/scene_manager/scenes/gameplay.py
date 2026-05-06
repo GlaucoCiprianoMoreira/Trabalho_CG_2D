@@ -20,7 +20,6 @@ from mechanics.Darkness import apply_darkness
 class GameplayScene(Scene):
     def __init__(self, manager):
         self.manager = manager
-        audio_manager.play_music('resonance')
         self.tiles = load_tiles()
         self.level = [row[:] for row in random.choice(levels)]
 
@@ -28,14 +27,14 @@ class GameplayScene(Scene):
         self.GAME_H = 144
 
         player_sprites = {
-            "up": [load_png_matrix("assets/sprites/player/player_tras1.png"), load_png_matrix("assets/sprites/player/player_tras2.png"),
-                     load_png_matrix("assets/sprites/player/player_tras3.png"), load_png_matrix("assets/sprites/player/player_tras4.png")],
-            "down": [load_png_matrix("assets/sprites/player/player_frente1.png"), load_png_matrix("assets/sprites/player/player_frente2.png"),
-                    load_png_matrix("assets/sprites/player/player_frente3.png"), load_png_matrix("assets/sprites/player/player_frente4.png")],
-            "left": [load_png_matrix("assets/sprites/player/player_esquerda1.png"), load_png_matrix("assets/sprites/player/player_esquerda2.png"),
-                     load_png_matrix("assets/sprites/player/player_esquerda3.png"), load_png_matrix("assets/sprites/player/player_esquerda4.png")],
-            "right": [load_png_matrix("assets/sprites/player/player_direita1.png"), load_png_matrix("assets/sprites/player/player_direita2.png"),
-                      load_png_matrix("assets/sprites/player/player_direita3.png"), load_png_matrix("assets/sprites/player/player_direita4.png")],
+            "up":    [load_png_matrix("assets/sprites/player/player_tras1.png"),     load_png_matrix("assets/sprites/player/player_tras2.png"),
+                      load_png_matrix("assets/sprites/player/player_tras3.png"),     load_png_matrix("assets/sprites/player/player_tras4.png")],
+            "down":  [load_png_matrix("assets/sprites/player/player_frente1.png"),   load_png_matrix("assets/sprites/player/player_frente2.png"),
+                      load_png_matrix("assets/sprites/player/player_frente3.png"),   load_png_matrix("assets/sprites/player/player_frente4.png")],
+            "left":  [load_png_matrix("assets/sprites/player/player_esquerda1.png"), load_png_matrix("assets/sprites/player/player_esquerda2.png"),
+                      load_png_matrix("assets/sprites/player/player_esquerda3.png"), load_png_matrix("assets/sprites/player/player_esquerda4.png")],
+            "right": [load_png_matrix("assets/sprites/player/player_direita1.png"),  load_png_matrix("assets/sprites/player/player_direita2.png"),
+                      load_png_matrix("assets/sprites/player/player_direita3.png"),  load_png_matrix("assets/sprites/player/player_direita4.png")],
         }
 
         self.player = Player(16, 16, player_sprites)
@@ -54,6 +53,13 @@ class GameplayScene(Scene):
         )
 
         self.popup = PopupManager()
+    
+    def on_enter(self):
+        audio_manager.play_music_queue(['moss-lit-caverns', 'quest', 'resonance'])
+    
+    def on_exit(self):
+        pass
+    
    
     def handle_event(self, event):
         pass
@@ -93,10 +99,12 @@ class GameplayScene(Scene):
             for chest in self.chests:
                 if (chest.x <= fx <= chest.x + 16) and (chest.y <= fy <= chest.y + 16):
                     chest.interact()
+                    audio_manager.play_sfx('chest_open')
             # Checa Mimics
             for mimic in self.mimics:
                 if (mimic.x <= fx <= mimic.x + 16) and (mimic.y <= fy <= mimic.y + 16):
                     mimic.interact()
+                    audio_manager.play_sfx('chest_mimic')
         
         # --- UPDATES DAS ENTIDADES DINÂMICAS ---
         for ore in self.ores:
@@ -106,6 +114,7 @@ class GameplayScene(Scene):
             if crystal.check_collection(self.player.x, self.player.y):
                 inventory.inventory_ore += 1
                 self.crystals.remove(crystal)
+                audio_manager.play_sfx('colect')
         for chest in self.chests:
             old_state = chest.state
             chest.update(dt)
