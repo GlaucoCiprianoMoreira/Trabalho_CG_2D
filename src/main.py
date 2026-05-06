@@ -1,5 +1,6 @@
 import sys
 import pygame
+import audio_manager
 
 from scene_manager.scene_manager import SceneManager
 from scene_manager.scenes.menu import MenuScene
@@ -9,6 +10,7 @@ from scene_manager.scenes.cutscene import CutsceneScene
 class Game:
     def __init__(self):
         pygame.init()
+        audio_manager.init()
         pygame.display.set_caption("Diamond Rush")
         GAME_W, GAME_H, SCALE = 160, 144, 5
         self.WIN_W, self.WIN_H = GAME_W * SCALE, GAME_H * SCALE

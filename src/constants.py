@@ -48,6 +48,6 @@ FONT = {
 
 def load_tiles():
     return {
-        0: load_png_matrix("assets/floor/floor_01.png"),
-        1: load_png_matrix("assets/rock/rock_01.png"),
+        0: load_png_matrix("assets/sprites/floor/floor_01.png"),
+        1: load_png_matrix("assets/sprites/rock/rock_01.png"),
     }

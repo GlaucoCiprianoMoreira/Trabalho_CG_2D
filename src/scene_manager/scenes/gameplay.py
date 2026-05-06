@@ -1,6 +1,7 @@
 import pygame
 import random
 
+import audio_manager
 from scene_manager.scene import Scene
 from constants import load_tiles
 from loader.LoadMap import draw_level, levels
@@ -13,6 +14,7 @@ from global_variables import inventory
 class GameplayScene(Scene):
     def __init__(self, manager):
         self.manager = manager
+        audio_manager.play_music('resonance')
         self.tiles = load_tiles()
         self.level = [row[:] for row in random.choice(levels)]
 
@@ -20,16 +22,16 @@ class GameplayScene(Scene):
         self.GAME_H = 144
 
         player_sprites = {
-            "up": [load_png_matrix("assets/player/player_tras1.png"), load_png_matrix("assets/player/player_tras2.png"),
-                     load_png_matrix("assets/player/player_tras3.png"), load_png_matrix("assets/player/player_tras4.png")],
-            "down": [load_png_matrix("assets/player/player_frente1.png"), load_png_matrix("assets/player/player_frente2.png"),
-                    load_png_matrix("assets/player/player_frente3.png"), load_png_matrix("assets/player/player_frente4.png")],
-            "left": [load_png_matrix("assets/player/player_esquerda1.png"), load_png_matrix("assets/player/player_esquerda2.png"),
-                     load_png_matrix("assets/player/player_esquerda3.png"), load_png_matrix("assets/player/player_esquerda4.png")],
-            "right": [load_png_matrix("assets/player/player_direita1.png"), load_png_matrix("assets/player/player_direita2.png"),
-                      load_png_matrix("assets/player/player_direita3.png"), load_png_matrix("assets/player/player_direita4.png")],
+            "up": [load_png_matrix("assets/sprites/player/player_tras1.png"), load_png_matrix("assets/sprites/player/player_tras2.png"),
+                     load_png_matrix("assets/sprites/player/player_tras3.png"), load_png_matrix("assets/sprites/player/player_tras4.png")],
+            "down": [load_png_matrix("assets/sprites/player/player_frente1.png"), load_png_matrix("assets/sprites/player/player_frente2.png"),
+                    load_png_matrix("assets/sprites/player/player_frente3.png"), load_png_matrix("assets/sprites/player/player_frente4.png")],
+            "left": [load_png_matrix("assets/sprites/player/player_esquerda1.png"), load_png_matrix("assets/sprites/player/player_esquerda2.png"),
+                     load_png_matrix("assets/sprites/player/player_esquerda3.png"), load_png_matrix("assets/sprites/player/player_esquerda4.png")],
+            "right": [load_png_matrix("assets/sprites/player/player_direita1.png"), load_png_matrix("assets/sprites/player/player_direita2.png"),
+                      load_png_matrix("assets/sprites/player/player_direita3.png"), load_png_matrix("assets/sprites/player/player_direita4.png")],
         }
-        self.ore_sprite = load_png_matrix("assets/ore/ore-01.png")
+        self.ore_sprite = load_png_matrix("assets/sprites/ore/ore-01.png")
         
         self.player = Player(16, 16, player_sprites)
         self.ores = []
