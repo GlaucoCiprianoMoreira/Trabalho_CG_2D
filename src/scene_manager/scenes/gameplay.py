@@ -95,10 +95,12 @@ class GameplayScene(Scene):
             for chest in self.chests:
                 if (chest.x <= fx <= chest.x + 16) and (chest.y <= fy <= chest.y + 16):
                     chest.interact()
+                    audio_manager.play_sfx('chest_open')
             # Checa Mimics
             for mimic in self.mimics:
                 if (mimic.x <= fx <= mimic.x + 16) and (mimic.y <= fy <= mimic.y + 16):
                     mimic.interact()
+                    audio_manager.play_sfx('chest_mimic')
         
         # --- UPDATES DAS ENTIDADES DINÂMICAS ---
         for ore in self.ores:
@@ -108,6 +110,7 @@ class GameplayScene(Scene):
             if crystal.check_collection(self.player.x, self.player.y):
                 inventory.inventory_ore += 1
                 self.crystals.remove(crystal)
+                audio_manager.play_sfx('colect')
         for chest in self.chests:
             old_state = chest.state
             chest.update(dt)
@@ -123,7 +126,6 @@ class GameplayScene(Scene):
             if old_state == "attacking" and mimic.state == "revealed":
                 self.player.take_damage()
         self.popup.update(dt)
-    audio_manager.play_sfx('colect')
     
     def draw(self, screen):
         screen.fill((0, 0, 0))

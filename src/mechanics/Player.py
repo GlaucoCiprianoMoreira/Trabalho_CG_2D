@@ -39,7 +39,7 @@ class Player:
             self.invincible_timer = 0.2
             print(f"AAAAAI! Vida restante: {self.health}")
 
-    def update(self, dt, keys, level, solid_entities, ores):
+    def update(self, dt, keys, level, solid_entities):
         was_moving = self.is_moving
         self.is_moving = False
         dx = 0

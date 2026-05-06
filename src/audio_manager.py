@@ -12,7 +12,6 @@ _step_channel: pygame.mixer.Channel = None
 
 _MUSIC_VOLUME = 0.3
 _SFX_VOLUME = 1
-_UI_VOLUME = 0.6
 
 _SFX_INDIVIDUAL_VOLUME = {
     "step":        0.3,
@@ -209,6 +208,7 @@ def play_sfx(name: str, ui: bool = False):
     sound = _sfx.get(name)
     if not sound:
         print(f"[audio] SFX desconhecido: '{name}'")
+        return
     
     if ui:
         _ui_channel.stop()
