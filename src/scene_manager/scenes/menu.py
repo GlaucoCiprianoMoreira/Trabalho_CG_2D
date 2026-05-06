@@ -1,5 +1,6 @@
 import pygame
 import math
+import audio_manager
 
 from engine.SetPixel import setPixel
 from engine.Bresenham import bresenham
@@ -18,6 +19,7 @@ from scene_manager.scene import Scene
 class MenuScene(Scene):
     def __init__(self, manager):
         self.manager = manager
+        audio_manager.play_music('hide-menu')
 
         self.n_button = 2
         self.n_button_max = 2
@@ -41,7 +43,7 @@ class MenuScene(Scene):
                         self.manager.go_to("cutscene")
                     # BOTÃO DE SOUND ON/OFF
                     else:
-                        config.sound_on = not config.sound_on
+                        audio_manager.set_sound_on(not config.sound_on)
 
                 elif self.n_button == 1:
                     # BOTÃO DE CONFIG
@@ -50,7 +52,7 @@ class MenuScene(Scene):
                         self.n_button = 0
                     # BOTÃO DE MUSIC ON/OFF
                     else:
-                        config.music_on = not config.music_on
+                        audio_manager.set_music_on(not config.music_on)
 
                 elif self.n_button == 0:
                     # BOTÃO DE QUIT
