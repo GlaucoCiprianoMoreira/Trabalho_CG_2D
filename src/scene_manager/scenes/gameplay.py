@@ -7,6 +7,7 @@ from constants import load_tiles
 from loader.LoadMap import draw_level, levels, check_ore_trap_chest_tiles
 from loader.LoadMatrix import load_png_matrix, draw_sprite
 from mechanics.Player import Player
+from mechanics.Viewport import PlayerViewport
 from mechanics.Ore import Ore
 from engine.Crystal import Crystal
 from global_variables import inventory
@@ -36,11 +37,13 @@ class GameplayScene(Scene):
             "right": [load_png_matrix("assets/sprites/player/player_direita1.png"), load_png_matrix("assets/sprites/player/player_direita2.png"),
                       load_png_matrix("assets/sprites/player/player_direita3.png"), load_png_matrix("assets/sprites/player/player_direita4.png")],
         }
+
+        self.player = Player(16, 16, player_sprites)
+
+        self.player_viewport = PlayerViewport(size=24, margin=4, screen_w=self.GAME_W)
         self.ore_sprite, self.trap_sprite = load_png_matrix("assets/sprites/ore/ore-01.png"), load_png_matrix("assets/sprites/trap/trap.png")
         self.chest_sprites = [load_png_matrix(f"assets/sprites/chest/chest-0{i}.png") for i in range(1, 5)]
         self.mimic_sprites = [load_png_matrix(f"assets/sprites/mimic/mimic{i}.png") for i in range(1, 17)]
-
-        self.player = Player(16, 16, player_sprites)
         self.ores = []
         self.crystals = []
         self.traps = []
@@ -51,13 +54,13 @@ class GameplayScene(Scene):
         )
 
         self.popup = PopupManager()
-    
+   
     def handle_event(self, event):
         pass
 
     def update(self, dt):
         keys = pygame.key.get_pressed()
-        solid_entities = self.ores + self.chests + self.mimics
+        self.player.update(dt, keys, self.level)
         self.player.update(dt, keys, self.level, solid_entities)
         if self.player.health <= 0:
             self.manager.go_to("dead") #DAVID: Trocar para a cena de morte quando ela for implementada
@@ -119,11 +122,19 @@ class GameplayScene(Scene):
                 self.player.take_damage()
         self.popup.update(dt)
     
+
     def draw(self, screen):
         screen.fill((0, 0, 0))
         camera_x = (self.player.x + 8) - (self.GAME_W / 2)
         camera_y = (self.player.y + 8) - (self.GAME_H / 2)
         draw_level(screen, self.level, self.tiles, camera_x, camera_y)
+
+        current_sprite = self.player.get_current_sprite()
+        centro_x = int((self.GAME_W / 2) - 8)
+        centro_y = int((self.GAME_H / 2) - 8)
+        draw_sprite(screen, current_sprite, centro_x, centro_y)
+
+        self.player_viewport.draw(screen, current_sprite)
         for trap_x, trap_y in self.traps:
             screen_x = int(trap_x - camera_x)
             screen_y = int(trap_y - camera_y)
