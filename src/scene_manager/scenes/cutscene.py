@@ -11,11 +11,16 @@ from scene_manager.scene import Scene
 class CutsceneScene(Scene):
     def __init__(self, manager):
         self.manager = manager
-        audio_manager.play_music('space-ii-cutscene')
         self.n_frame = 0
         self.time_frame = [2000, 1400, 2000, 1000, 1000, 1000, 3000, 1000, 4000]
         self.last_time = 0
         self.clock = pygame.time.Clock()
+    
+    def on_enter(self):
+        audio_manager.play_music('space-ii-cutscene')
+    
+    def on_exit(self):
+        pass
     
     def handle_event(self, event):
         #n_frame = 0

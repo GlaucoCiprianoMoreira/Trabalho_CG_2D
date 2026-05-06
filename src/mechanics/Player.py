@@ -1,4 +1,5 @@
 import pygame
+import audio_manager
 from mechanics.Physics import check_grid_collision, check_aabb_collision
 from loader.LoadMap import levels
 
@@ -26,6 +27,7 @@ class Player:
         self.offset_y = 1
 
     def update(self, dt, keys, level, ores):
+        was_moving = self.is_moving
         self.is_moving = False
         dx = 0
         dy = 0
@@ -89,6 +91,7 @@ class Player:
             if not self.space_pressed:
                 self.space_pressed = True
                 self.is_mining = True
+                audio_manager.play_sfx('mining')
         else:
             self.space_pressed = False
             self.is_mining = False
@@ -104,6 +107,11 @@ class Player:
             # Assumindo que o frame 0 é o personagem parado
             self.current_frame = 0
             self.anim_timer = 0.0
+        
+        if self.is_moving and not was_moving:
+            audio_manager.play_steps()
+        elif not self.is_moving and was_moving:
+            audio_manager.stop_steps()
 
     def get_current_sprite(self):
         """Retorna a matriz de pixels correta para o momento atual."""

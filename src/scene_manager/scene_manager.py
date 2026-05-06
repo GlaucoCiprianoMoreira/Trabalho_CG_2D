@@ -7,8 +7,11 @@ class SceneManager:
         self._scenes[name] = scene
     
     def go_to(self, name):
+        if self._current:
+            self._current.on_exit()
         self._current = self._scenes[name]
-    
+        self._current.on_enter()
+
     def handle_event(self, event):
         self._current.handle_event(event)
     

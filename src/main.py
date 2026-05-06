@@ -11,7 +11,7 @@ class Game:
     def __init__(self):
         pygame.init()
         audio_manager.init()
-        pygame.display.set_caption("Diamond Rush")
+        pygame.display.set_caption("Cave Game")
         GAME_W, GAME_H, SCALE = 160, 144, 5
         self.WIN_W, self.WIN_H = GAME_W * SCALE, GAME_H * SCALE
         self.window = pygame.display.set_mode((self.WIN_W, self.WIN_H))
@@ -36,6 +36,7 @@ class Game:
                 if event.type == pygame.QUIT:
                     running = False
                 self.manager.handle_event(event)
+                audio_manager.handle_event(event)
 
             self.manager.update(dt)
             self.manager.draw(self.screen)

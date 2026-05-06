@@ -19,7 +19,6 @@ from scene_manager.scene import Scene
 class MenuScene(Scene):
     def __init__(self, manager):
         self.manager = manager
-        audio_manager.play_music('hide-menu')
 
         self.n_button = 2
         self.n_button_max = 2
@@ -28,15 +27,24 @@ class MenuScene(Scene):
         self.angulo = 0
         self.t = math.radians(self.angulo)
         self.clock = pygame.Clock()
+
+    def on_enter(self):
+        audio_manager.play_music('hide-menu')
+    
+    def on_exit(self):
+        pass
     
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:
             if event.key in (pygame.K_w, pygame.K_UP) and self.n_button < 2:
                 self.n_button += 1
+                audio_manager.play_sfx('select', ui=True)
             if event.key in (pygame.K_s, pygame.K_DOWN) and self.n_button > 0:
                 self.n_button -= 1
+                audio_manager.play_sfx('select', ui=True)
 
             if event.key in (pygame.K_RETURN, pygame.K_SPACE):
+                audio_manager.play_sfx('click', ui=True)
                 if self.n_button == 2:
                     # BOTÃO DE PLAY
                     if not self.open_config:
