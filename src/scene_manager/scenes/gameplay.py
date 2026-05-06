@@ -6,6 +6,8 @@ from constants import load_tiles
 from loader.LoadMap import draw_level, levels
 from loader.LoadMatrix import load_png_matrix, draw_sprite
 from mechanics.Player import Player
+from mechanics.Viewport import PlayerViewport
+
 
 class GameplayScene(Scene):
     def __init__(self, manager):
@@ -26,22 +28,27 @@ class GameplayScene(Scene):
             "right": [load_png_matrix("assets/player/player_direita1.png"), load_png_matrix("assets/player/player_direita2.png"),
                       load_png_matrix("assets/player/player_direita3.png"), load_png_matrix("assets/player/player_direita4.png")],
         }
-        
+
         self.player = Player(16, 16, player_sprites)
-    
+
+        self.player_viewport = PlayerViewport(size=24, margin=4, screen_w=self.GAME_W)
+
     def handle_event(self, event):
         pass
 
     def update(self, dt):
         keys = pygame.key.get_pressed()
         self.player.update(dt, keys, self.level)
-    
+
     def draw(self, screen):
         screen.fill((0, 0, 0))
         camera_x = (self.player.x + 8) - (self.GAME_W / 2)
         camera_y = (self.player.y + 8) - (self.GAME_H / 2)
         draw_level(screen, self.level, self.tiles, camera_x, camera_y)
+
         current_sprite = self.player.get_current_sprite()
-        centro_x = int((self.GAME_W / 2) - 8) # Subtrai metade da largura do sprite para centralizar
-        centro_y = int((self.GAME_H / 2) - 8) # Subtrai metade da altura do sprite para centralizar
+        centro_x = int((self.GAME_W / 2) - 8)
+        centro_y = int((self.GAME_H / 2) - 8)
         draw_sprite(screen, current_sprite, centro_x, centro_y)
+
+        self.player_viewport.draw(screen, current_sprite)
