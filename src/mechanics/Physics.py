@@ -33,19 +33,24 @@ def check_trigger(x, y, hitbox_w, hitbox_h, offset_x, offset_y, trigger_map):
     
     # Encontra o centro exato da Hitbox do jogador
     center_x = x + offset_x + (hitbox_w / 2)
-    center_y = y + offset_y + (hitbox_h / 2)
+    feet_y = y + offset_y + hitbox_h - 0.1
     
     # Descobre em qual linha e coluna da matriz esse centro caiu
-    row = int(center_y // TILE_SIZE)
+    row = int(feet_y // TILE_SIZE)
     col = int(center_x // TILE_SIZE)
     
     # Verifica se não está lendo fora do mapa
     if 0 <= row < len(trigger_map) and 0 <= col < len(trigger_map[0]):
         tile_id = trigger_map[row][col]
-        # Assumindo que 0, 1 e 2 são chão/pedra normal, 
-        # e IDs maiores que 10 são Triggers (ex: 11=Espinhos, 12=Porta)
         if tile_id > 10: 
-            return tile_id
+            tile_center_x = (col * TILE_SIZE) + (TILE_SIZE / 2)
+            tile_center_y = (row * TILE_SIZE) + (TILE_SIZE / 2)
+            dx = center_x - tile_center_x
+            dy = feet_y - tile_center_y
+            squared_distance = (dx * dx) + (dy * dy)
+            radius_tolerance = 5.0
+            if squared_distance <= (radius_tolerance * radius_tolerance):
+                return tile_id
             
     return None
 
