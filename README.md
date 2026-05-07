@@ -1,32 +1,183 @@
-# Game name
+# CAVE GAME
 
-## Overview
-  * What the project does.
+Jogo arcade 2D desenvolvido como trabalho da disciplina de Computação Gráfica.
+Todos os elementos visuais são renderizados com algoritmos gráficos implementados do zero — sem uso de funções de desenho de bibliotecas externas.
+
+## Descrição
+
+Cave Game é um jogo arcade 2D de exploração de masmorras. O jogador acorda em uma caverna escura sem saber como chegou ali, e precisa encontrar a saída enquanto coleta minérios, abre baús e desvia de armadilhas.
+
+O diferencial técnico do projeto é que toda a renderização é feita manualmente, pixel a pixel, utilizando algoritmos clássicos de Computação Gráfica: rasterização de primitivas geométricas, preenchimento de regiões, transformações geométricas 2D e mapeamento de texturas por matriz.
+
+A resolução interna do jogo é de 160×144 pixels (inspirada no Game Boy), escalada 5× para a janela final de 800×720.
 
 ---
 
-## Technologies
-### Python Version
+## Como Jogar
 
+### Objetivo
+
+Explore a caverna, colete minérios quebrando rochas e encontre a porta de saída para vencer. Cuidado com as armadilhas escondidas no chão e com os Mimics — baús que fingem ser normais e atacam quando abertos!
+
+### Controles
+
+| Ação         | Teclado                 |
+|--------------|-------------------------|
+| Frente       | `W` ou `↑`              |
+| Direita      | `D` ou `→`              |
+| Trás         | `S` ou `↓`              |
+| Esquerda     | `A` ou `←`              |
+| Interagir    | `Space` ou `Enter`      |
+
+### HUD
+
+- ♥ N — Vidas restantes (3 no total)
+- $ N — Minérios coletados
+
+### Elementos do Mapa
+
+| Elemento      | Descrição                                          |
+|---------------|----------------------------------------------------|
+| 🪨 Rocha     | Bloqueio sólido. Não pode ser atravessado.          |
+| ⛏️ Minério   | Quebre com Espaço. Solta cristais ao destruir.      |
+| 📦 Baú       | Abra com Espaço. Contém minérios.                   |
+| 👾 Mimic     | Parece um baú, mas ataca! Causa dano ao ser aberto. |
+| ⚠️ Armadilha | Tile invisível no chão. Causa morte instantânea.    |
+| 🚪 Porta     | Encontre-a para vencer o nível.                     |
+
+---
+
+## Vídeo de Demonstração
+
+[![demo](https://i.pinimg.com/736x/4e/0b/15/4e0b1590ca50077314a238de9b514065.jpg)](https://youtu.be/dQw4w9WgXcQ?si=UZS7bNuZoT9GPsNt)
+
+🎥 **Meu Jogo — Trailer Oficial**  
+📺 YouTube  
+⏱️ 2 min 31 s
+
+---
+
+## Como Compilar e Executar
+### Pré-requisitos
+
+Python Version
 ```
 3.11
 ```
 
+### 1. Clone o repositório
+
+```
+git clone https://github.com/GlaucoCiprianoMoreira/Trabalho_CG_2D.git
+cd Trabalho_CG_2D
+```
+
+### 2. Clone o repositório
+
+```
+pip install uv
+uv sync
+```
+
+### 3. Execute o jogo
+
+A partir da raiz do repositório:
+
+```
+python src/main.py
+```
+
 ---
 
+## Estrutura do Projeto
 
-## The main objective of the project
-  * Explanation about the subject of Computer Graphics (setpixel, raster, scanline and others).
-  * And why is useful
+```
+/
+├── assets/
+│   ├── audio/
+│   │   ├── music/          # Trilhas sonoras (.ogg)
+│   │   └── sfx/            # Efeitos sonoros (.ogg)
+│   └── sprites/
+│       ├── player/         # Sprites de caminhada (4 direções × 4 frames)
+│       ├── floor/          # Tile de chão
+│       ├── rock/           # Tile de rocha
+│       ├── ore/            # Sprite de minério
+│       ├── chest/          # Frames de animação do baú
+│       ├── mimic/          # Frames de animação do mimic
+│       ├── trap/           # Sprite da armadilha
+│       ├── door/           # Tile da porta de saída
+│       └── cutscene/       # Frames da cutscene de introdução
+│
+└── src/
+    ├── main.py             # Ponto de entrada — inicializa e executa o jogo
+    ├── config/
+    │   ├── Constants.py    # Paleta de cores, fonte bitmap e carregamento de tiles
+    │   └── Variables.py    # Estado global (vida, inventário, configurações)
+    ├── engine/
+    │   ├── effects/        # Efeitos visuais (Crystal — animação com transformações)
+    │   ├── fill/           # Flood Fill e Boundary Fill (iterativo e recursivo)
+    │   ├── geometry/       # Primitivas: Bresenham, DDA, Círculo, Elipse
+    │   ├── HUD/            # Texto bitmap, botões e popup de notificação
+    │   └── render/         # SetPixel, Scanline, Clipping, Transformações, DrawPolygon
+    ├── game/
+    │   ├── audio/          # Gerenciador de música e SFX
+    │   ├── mechanics/      # Player, Física, Ore, Chest, Mimic, Viewport, Darkness
+    │   └── scene_manager/  # Máquina de estados de cenas (Menu, Gameplay, etc.)
+    └── loader/
+        ├── LoadMatrix.py   # Carrega PNG como matriz numpy; renderiza sprites
+        └── LoadMap.py      # Define os níveis e inicializa entidades do mapa
+```
 
 ---
 
+## Implementações Técnicas de Computação Gráfica
 
-## Demo Video of the Game
-  * Create and post a vídeo of the game on youtube as unlisted and share it as Embed, copy/paste the HTML here.
+### Primitivas de Rasterização
+
+| Algoritmo             | Arquivo                        | Uso no Jogo                                 |
+|-----------------------|--------------------------------|---------------------------------------------|
+| Set Pixel             | `engine/render/SetPixel.py`    | Base de toda renderização                   |
+| Bresenham (reta)      | `engine/geometry/Bresenham.py` | Contornos de polígonos, botões, stalactites |
+| DDA / Naïve (reta)    | `engine/geometry/Line.py`      | Implementações alternativas (demonstração)  |
+| Círculo (ponto médio) | `engine/geometry/Circle.py`    | Partículas de poeira animadas no menu       |
+| Elipse (ponto médio)  | `engine/geometry/Ellipse.py`   | Decoração na tela de abertura               |
+
+### Preenchimento de Regiões
+
+| Algoritmo               | Arquivo                         | Uso no Jogo                              |
+|-------------------------|---------------------------------|------------------------------------------|
+| Flood Fill iterativo    | `engine/fill/FloodFill.py`      | Preenchimento dos botões de menu         |
+| Boundary Fill iterativo | `engine/geometry/Bresenham.py`  | Preenchimento com detecção de borda      |
+| Scanline Fill           | `engine/render/ScanlineFill.py` | Polígonos, botões, cristais, stalactites |
+
+### Transformações Geométricas 2D (matrizes homogêneas 3×3)
+
+| Transformação | Arquivo                            | Uso no Jogo                                       |
+|---------------|------------------------------------|---------------------------------------------------|
+| Translação    | `engine/render/Transformations.py` | Posicionamento do cristal na tela                 |
+| Escala        | `engine/render/Transformations.py` | Animação de "pulsação" do minério ao ser golpeado |
+| Rotação       | `engine/render/Transformations.py` | Rotação contínua do cristal coletável             |
+
+### Janela, Viewport e Recorte
+
+| Recurso                    | Arquivo                                 | Uso no Jogo                                          |
+|----------------------------|-----------------------------------------|------------------------------------------------------|
+| Sistema de câmera (janela) | `game/scene_manager/scenes/Gameplay.py` | Translação de coordenadas de mundo → tela            |
+| Escala de janela           | `main.py`                               | Tela interna 160×144 escalada 5× para 800×720        |
+| Viewport do jogador        | `game/mechanics/Viewport.py`            | Miniatura do sprite no canto superior direito        |
+| Cohen-Sutherland           | `engine/render/Clipping.py`             | Recorte de segmentos contra a janela de visualização |
 
 ---
 
+## Mapeamento de Textura
+
+Sprites são carregados como matrizes `numpy` (via `load_png_matrix`) e desenhados pixel a pixel com `setPixel`. O `draw_sprite_transformed` implementa o mapeamento inverso para aplicar escala à textura.
+
+## Gradientes por Vértice
+
+O fundo do menu utiliza gradiente radial calculado por distância ao centro, mapeando a paleta de 4 cores da Game Boy proporcionalmente.
+
+---
 
 ## Color Palette
 
@@ -62,43 +213,17 @@
 ---
 
 
-## Game Concepts:
-  * Explanation about the game concepts, artistic inspirations, mechanics, difficulty level and others.
-
----
-
-
-## Controls in game:
-  * Keys on the keyboard to play
-
-
----
-
-
-## How to play:
-  * how to clone the repo and install the dependencies to play the game.
-  * Using `inline code` to represent the terminal
-
----
-
-
-## Notes:
-  * Final remarks about the project.
-
----
-
-
 <h2 align="center">Project Contributors</h2>
   <p align="center">
   <a href="https://github.com/HumDavid">
-    <img src="https://github.com/HumDavid.png" width="100" />
+    <img src="https://github.com/HumDavid.png" width="150" />
   </a>
 
   <a href="https://github.com/GlaucoCiprianoMoreira">
-    <img src="https://github.com/GlaucoCiprianoMoreira.png" width="100" />
+    <img src="https://github.com/GlaucoCiprianoMoreira.png" width="150" />
   </a>
 
   <a href="https://github.com/GuilhermeGasparr">
-    <img src="https://github.com/GuilhermeGasparr.png" width="100" />
+    <img src="https://github.com/GuilhermeGasparr.png" width="150" />
   </a>
 </p>
