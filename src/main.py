@@ -6,6 +6,8 @@ from scene_manager.scene_manager import SceneManager
 from scene_manager.scenes.menu import MenuScene
 from scene_manager.scenes.gameplay import GameplayScene
 from scene_manager.scenes.cutscene import CutsceneScene
+from scene_manager.scenes.victory import VictoryScene
+from scene_manager.scenes.death import DeathScene
 
 class Game:
     def __init__(self):
@@ -22,6 +24,8 @@ class Game:
         self.manager.register("menu",     MenuScene(self.manager))
         self.manager.register("cutscene", CutsceneScene(self.manager))
         self.manager.register("gameplay", GameplayScene(self.manager))
+        self.manager.register("victory", VictoryScene(self.manager))
+        self.manager.register("death", DeathScene(self.manager))
 
         self.manager.go_to("menu")
 

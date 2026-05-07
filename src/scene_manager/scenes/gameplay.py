@@ -21,12 +21,11 @@ class GameplayScene(Scene):
     def __init__(self, manager):
         self.manager = manager
         self.tiles = load_tiles()
-        self.level = [row[:] for row in random.choice(levels)]
 
         self.GAME_W = 160
         self.GAME_H = 144
 
-        player_sprites = {
+        self.player_sprites = {
             "up":    [load_png_matrix("assets/sprites/player/player_tras1.png"),     load_png_matrix("assets/sprites/player/player_tras2.png"),
                       load_png_matrix("assets/sprites/player/player_tras3.png"),     load_png_matrix("assets/sprites/player/player_tras4.png")],
             "down":  [load_png_matrix("assets/sprites/player/player_frente1.png"),   load_png_matrix("assets/sprites/player/player_frente2.png"),
@@ -37,25 +36,32 @@ class GameplayScene(Scene):
                       load_png_matrix("assets/sprites/player/player_direita3.png"),  load_png_matrix("assets/sprites/player/player_direita4.png")],
         }
 
-        self.player = Player(16, 16, player_sprites)
-
         self.player_viewport = PlayerViewport(size=24, margin=4, screen_w=self.GAME_W)
-        self.ore_sprite, self.trap_sprite = load_png_matrix("assets/sprites/ore/ore-01.png"), load_png_matrix("assets/sprites/trap/trap.png")
+        self.ore_sprite = load_png_matrix("assets/sprites/ore/ore-01.png")
+        self.trap_sprite = load_png_matrix("assets/sprites/trap/trap.png")
         self.chest_sprites = [load_png_matrix(f"assets/sprites/chest/chest-0{i}.png") for i in range(1, 5)]
         self.mimic_sprites = [load_png_matrix(f"assets/sprites/mimic/mimic{i}.png") for i in range(1, 17)]
+
+        self.popup = PopupManager()
+    
+    def on_enter(self):
+        self.level = [row[:] for row in random.choice(levels)]
+        inventory.inventory_ore = 0
+        self.player = Player(16, 16, self.player_sprites)
+        
         self.ores = []
         self.crystals = []
         self.traps = []
+        self.chests = []
+        self.mimics = []
+        audio_manager.play_music_queue(['moss-lit-caverns', 'quest', 'resonance'])
         #Matriz mapping dos triggers
         self.trigger_map = [[0 for _ in range(len(self.level[0]))] for _ in range(len(self.level))]
         self.level, self.ores, self.traps, self.chests, self.mimics, self.trigger_map = check_ore_trap_chest_tiles(
             self.level, self.ores, self.traps, self.trigger_map, self.ore_sprite, self.chest_sprites, self.mimic_sprites
         )
-
-        self.popup = PopupManager()
-    
-    def on_enter(self):
-        audio_manager.play_music_queue(['moss-lit-caverns', 'quest', 'resonance'])
+        self.popup.state = "idle"
+        self.popup.alpha = 0.0
     
     def on_exit(self):
         pass
@@ -69,7 +75,7 @@ class GameplayScene(Scene):
         solid_entities = self.ores + self.chests + self.mimics
         self.player.update(dt, keys, self.level, solid_entities)
         if self.player.health <= 0:
-            self.manager.go_to("dead") #DAVID: Trocar para a cena de morte quando ela for implementada
+            self.manager.go_to("death") #DAVID: Trocar para a cena de morte quando ela for implementada
 
         trigger_id = check_trigger(
             self.player.x, 
@@ -82,6 +88,9 @@ class GameplayScene(Scene):
         )
         if trigger_id == 11 and self.player.invincible_timer <= 0:
             self.player.health = 0
+
+        elif trigger_id == 4:
+            self.manager.go_to("victory")
 
         # --- LÓGICA DE INTERAÇÃO ---
         if self.player.is_mining:
