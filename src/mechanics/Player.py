@@ -1,12 +1,13 @@
 import pygame
+
+from global_variables import variables
+
 import audio_manager
 from mechanics.Physics import check_grid_collision, check_aabb_collision
 from loader.LoadMap import levels
 
 class Player:
     def __init__(self, start_x, start_y, sprites_dict):
-        # Vida
-        self.health = 3
         self.invincible_timer = 0.0 # Timer de Dano
         self.is_visible = True      # Controle do Blinking
 
@@ -35,9 +36,8 @@ class Player:
 
     def take_damage(self):
         if self.invincible_timer <= 0:
-            self.health -= 1
+            variables.health -= 1
             self.invincible_timer = 0.2
-            print(f"AAAAAI! Vida restante: {self.health}")
 
     def update(self, dt, keys, level, solid_entities):
         was_moving = self.is_moving
@@ -89,7 +89,7 @@ class Player:
                 if not hit_solid: self.y += dy
         
         # Trava para o botão SPACE (Edge Detection)
-        if keys[pygame.K_SPACE]:
+        if keys[pygame.K_SPACE] or keys[pygame.K_RETURN]:
             if not self.space_pressed:
                 self.space_pressed = True
                 self.is_mining = True
