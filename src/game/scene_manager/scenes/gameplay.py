@@ -1,21 +1,21 @@
 import pygame
 import random
 
-import audio_manager
-from scene_manager.scene import Scene
-from constants import load_tiles
+import game.audio.audio_manager as audio_manager
+from game.scene_manager.scene import Scene
+from config.constants import load_tiles
 from loader.LoadMap import draw_level, levels, check_ore_trap_chest_tiles
 from loader.LoadMatrix import load_png_matrix, draw_sprite
-from mechanics.Player import Player
-from mechanics.Viewport import PlayerViewport
-from mechanics.Ore import Ore
-from engine.Crystal import Crystal
-from global_variables import variables
-from mechanics.Physics import check_trigger
+from game.mechanics.Player import Player
+from game.mechanics.Viewport import PlayerViewport
+from game.mechanics.Ore import Ore
+from engine.effects.Crystal import Crystal
+import config.variables as variables
+from game.mechanics.Physics import check_trigger
 from engine.HUD.text import draw_text
 from engine.HUD.PopupManager import PopupManager
-from constants import LIGHTEST
-from mechanics.Darkness import apply_darkness
+from config.constants import LIGHTEST
+from game.mechanics.Darkness import apply_darkness
 
 class GameplayScene(Scene):
     def __init__(self, manager):

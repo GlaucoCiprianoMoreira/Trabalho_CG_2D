@@ -1,4 +1,4 @@
-from engine.SetPixel import setPixel
+from engine.render.SetPixel import setPixel
 
 def boundaryFillIterative(surface, x, y, fill_color, boundary_color):
     width = surface.get_width()

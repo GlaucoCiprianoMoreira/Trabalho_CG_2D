@@ -1,4 +1,4 @@
-from engine.SetPixel import setPixel
+from engine.render.SetPixel import setPixel
 
 def reta_ingenua(surface, x0, y0, x1, y1, color):
     # Garantir x crescente

@@ -1,8 +1,8 @@
 import math
-from engine.Transformations import identity, translation, rotation, scale, multiply, apply
-from engine.DrawPolygon import drawPolygon
-from engine.ScanlineFill import scanline_fill
-from constants import DARKEST, LIGHTEST
+from engine.render.Transformations import identity, translation, rotation, scale, multiply, apply
+from engine.render.DrawPolygon import drawPolygon
+from engine.render.ScanlineFill import scanline_fill
+from config.constants import DARKEST, LIGHTEST
 
 class Crystal:
     def __init__(self, x, y):

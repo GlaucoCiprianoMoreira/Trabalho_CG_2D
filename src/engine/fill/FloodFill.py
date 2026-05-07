@@ -1,4 +1,4 @@
-from engine.SetPixel import setPixel
+from engine.render.SetPixel import setPixel
 
 def floodFillIterative(surface, x, y, filling_color, edge_color):
     width = surface.get_width()
