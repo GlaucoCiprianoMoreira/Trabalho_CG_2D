@@ -1,4 +1,5 @@
 import pygame
+import random
 import game.audio.Audio_manager as audio_manager
 import config.Variables as variables
 
@@ -6,6 +7,7 @@ from engine.geometry.Circle import fill_circle
 from engine.HUD.Text import draw_text
 from engine.geometry.Bresenham import bresenham
 from engine.HUD.Button import draw_floodfill_button_alt
+from engine.render.Clipping import cohen_sutherland_clip
 from loader.LoadMatrix import load_png_matrix, draw_sprite
 
 from game.scene_manager.Scene import Scene
@@ -102,6 +104,12 @@ class DeathScene(Scene):
             
         elif self.state == "selection":
             screen.fill(DARKEST)
+
+            clip_xmin = 0
+            clip_ymin = 0
+            clip_xmax = 160
+            clip_ymax = 22
+
             draw_text(screen, "VOCE MORREU", 80, 30, LIGHTEST, scale=1, mode="center")
 
             ore_text = f"${variables.inventory_ore} MINERIOS"
@@ -109,3 +117,15 @@ class DeathScene(Scene):
 
             draw_floodfill_button_alt(screen, 95, 12, "JOGAR NOVAMENTE", 80, 90, self.n_button == 1)
             draw_floodfill_button_alt(screen, 115, 12, "VOLTAR PARA O MENU", 80, 110, self.n_button == 0)
+
+            target_lines = [
+                (0, 0, 80, 30),
+                (160, 0, 80, 30)
+            ]
+
+            for (x1, y1, x2, y2) in target_lines:
+                accept, cx1, cy1, cx2, cy2 = cohen_sutherland_clip(
+                    x1, y1, x2, y2, clip_xmin, clip_ymin, clip_xmax, clip_ymax
+                )
+                if accept:
+                    bresenham(screen, int(cx1), int(cy1), int(cx2), int(cy2), DARK)
