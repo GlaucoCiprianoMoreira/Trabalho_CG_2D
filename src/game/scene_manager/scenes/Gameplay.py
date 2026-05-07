@@ -8,7 +8,6 @@ from loader.LoadMap import draw_level, levels, check_ore_trap_chest_tiles
 from loader.LoadMatrix import load_png_matrix, draw_sprite
 from game.mechanics.Player import Player
 from game.mechanics.Viewport import PlayerViewport
-from game.mechanics.Ore import Ore
 from engine.effects.Crystal import Crystal
 import config.Variables as variables
 from game.mechanics.Physics import check_trigger
@@ -125,7 +124,7 @@ class GameplayScene(Scene):
                 single_crystal = 3
                 variables.inventory_ore += single_crystal
                 self.popup.trigger(f"PEGOU {single_crystal} MINERIOS!")
-                audio_manager.play_sfx('colect')
+                audio_manager.play_sfx('collect')
                 self.crystals.remove(crystal)
 
         for chest in self.chests:
@@ -134,7 +133,7 @@ class GameplayScene(Scene):
             if old_state == "opening" and chest.state == "opened":
                 ganho = random.randint(1, 5)
                 variables.inventory_ore += ganho
-                audio_manager.play_sfx('colect')
+                audio_manager.play_sfx('collect')
                 self.popup.trigger(f"PEGOU {ganho} MINERIOS!")
 
         for mimic in self.mimics:
@@ -150,10 +149,6 @@ class GameplayScene(Scene):
         camera_x = (self.player.x + 8) - (self.GAME_W / 2)
         camera_y = (self.player.y + 6) - (self.GAME_H / 2)
         draw_level(screen, self.level, self.tiles, camera_x, camera_y)
-
-        current_sprite = self.player.get_current_sprite()
-        centro_x = int((self.GAME_W / 2) - 8)
-        centro_y = int((self.GAME_H / 2) - 8)
 
         for trap_x, trap_y in self.traps:
             screen_x = int(trap_x - camera_x)

@@ -8,4 +8,4 @@ def drawSin(surface, height, width, color):
     
     for x in range(width):
         y = centro_y - int(math.sin(x*frequency)*amplitude)
-        setPixel(surface, x, y, (0, 0, 0), color)
+        setPixel(surface, x, y, color)

@@ -1,6 +1,6 @@
+from config.Constants import TILE_SIZE
+
 def check_grid_collision(x, y, hitbox_w, hitbox_h, offset_x, offset_y, level):
-    TILE_SIZE = 16
-    
     left = x + offset_x
     right = left + hitbox_w - 0.1
     top = y + offset_y
@@ -21,8 +21,6 @@ def check_grid_collision(x, y, hitbox_w, hitbox_h, offset_x, offset_y, level):
     return False
 
 def check_trigger(x, y, hitbox_w, hitbox_h, offset_x, offset_y, trigger_map):
-    TILE_SIZE = 16
-
     px = x + offset_x
     py = y + offset_y
     pw = hitbox_w
@@ -68,8 +66,6 @@ def check_trigger(x, y, hitbox_w, hitbox_h, offset_x, offset_y, trigger_map):
 
 
 def check_interaction(x, y, hitbox_w, hitbox_h, offset_x, offset_y, direction, interact_map):
-    TILE_SIZE = 16
-    
     target_x = x + offset_x + (hitbox_w / 2)
     target_y = y + offset_y + (hitbox_h / 2)
     

@@ -16,7 +16,6 @@ class Game:
         GAME_W, GAME_H, SCALE = 160, 144, 5
         self.WIN_W, self.WIN_H = GAME_W * SCALE, GAME_H * SCALE
         self.window = pygame.display.set_mode((self.WIN_W, self.WIN_H))
-        self.window = pygame.display.set_mode((self.WIN_W, self.WIN_H))
         self.screen = pygame.Surface((GAME_W, GAME_H))
 
         self.manager = SceneManager()
@@ -43,11 +42,9 @@ class Game:
 
             self.manager.update(dt)
             self.manager.draw(self.screen)
-            self.window.blit
             scaled = pygame.transform.scale(self.screen, (self.WIN_W, self.WIN_H))
             self.window.blit(scaled, (0, 0))
             pygame.display.flip()
-            self.clock.tick(60)
 
 
 if __name__ == "__main__":

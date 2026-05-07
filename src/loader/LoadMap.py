@@ -1,8 +1,7 @@
-import pygame
 import random
 
-from .LoadMatrix import load_png_matrix, draw_sprite
-from config.Constants import load_tiles
+from .LoadMatrix import draw_sprite
+from config.Constants import TILE_SIZE
 from game.mechanics.Ore import Ore
 from game.mechanics.Chest import Chest
 from game.mechanics.Mimic import Mimic
@@ -31,8 +30,6 @@ levels = [
 ]
 
 def draw_level(surface, level, tiles, camera_x, camera_y):
-    TILE_SIZE = 16
-
     start_col = int(camera_x // TILE_SIZE)
     end_col = int((camera_x + surface.get_width()) // TILE_SIZE) + 1
     start_row = int(camera_y // TILE_SIZE)

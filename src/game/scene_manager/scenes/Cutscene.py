@@ -37,8 +37,6 @@ class CutsceneScene(Scene):
             else:
                 self.n_frame = 0
                 self.manager.go_to("gameplay")
-
-        self.clock.tick(60)
     
     def update(self, dt):
         self.roll_film(dt)

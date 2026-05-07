@@ -57,18 +57,17 @@ class VictoryScene(Scene):
                     audio_manager.play_sfx('click', ui=True)
                     self.state = "selection"
             elif self.state == "selection":
-                if event.type == pygame.KEYDOWN:
-                    if event.key in (pygame.K_w, pygame.K_UP, pygame.K_s, pygame.K_DOWN):
-                        self.n_button = 1 - self.n_button
-                        audio_manager.play_sfx('select', ui=True)
+                if event.key in (pygame.K_w, pygame.K_UP, pygame.K_s, pygame.K_DOWN):
+                    self.n_button = 1 - self.n_button
+                    audio_manager.play_sfx('select', ui=True)
 
-                    if event.key in (pygame.K_RETURN, pygame.K_SPACE):
-                        audio_manager.play_sfx('click', ui=True)
-                        if self.n_button == 1:
-                            self.manager.go_to("gameplay")
-                        else:
-                            self.manager.go_to("menu")
-                        variables.health = 3
+                if event.key in (pygame.K_RETURN, pygame.K_SPACE):
+                    audio_manager.play_sfx('click', ui=True)
+                    if self.n_button == 1:
+                        self.manager.go_to("gameplay")
+                    else:
+                        self.manager.go_to("menu")
+                    variables.health = 3
 
     def update(self, dt):
         if self.state == "waiting":

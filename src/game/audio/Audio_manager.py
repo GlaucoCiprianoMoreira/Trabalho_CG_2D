@@ -51,7 +51,7 @@ def _load_sfx():
     sounds = {
         "click":       "assets/audio/sfx/clicando-algo.ogg",
         "select":      "assets/audio/sfx/selecionando-algo.ogg",
-        "colect":      "assets/audio/sfx/coleta-item.ogg",
+        "collect":      "assets/audio/sfx/coleta-item.ogg",
         "game_over":   "assets/audio/sfx/game-over.ogg",
         "game_win":    "assets/audio/sfx/game-win.ogg",
         "chest_open":  "assets/audio/sfx/clicando-algo.ogg",
