@@ -1,4 +1,5 @@
-from .text import draw_text
+from engine.HUD.Text import draw_text
+
 class PopupManager:
     """Gerencia a máquina de estados e o desenho de popups de texto na tela."""
     def __init__(self):

@@ -2,7 +2,7 @@ import pygame
 import random
 
 from .LoadMatrix import load_png_matrix, draw_sprite
-from config.constants import load_tiles
+from config.Constants import load_tiles
 from game.mechanics.Ore import Ore
 from game.mechanics.Chest import Chest
 from game.mechanics.Mimic import Mimic

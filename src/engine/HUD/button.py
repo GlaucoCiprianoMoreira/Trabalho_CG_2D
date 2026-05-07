@@ -1,9 +1,9 @@
-from config.constants import DARKEST, DARK, LIGHT, LIGHTEST
+from config.Constants import DARKEST, DARK, LIGHT, LIGHTEST
 from engine.geometry.Bresenham import bresenham
 from engine.fill.FloodFill import floodFill
 from engine.render.ScanlineFill import scanline_fill
 
-from engine.HUD.text import draw_text
+from engine.HUD.Text import draw_text
 
 def draw_floodfill_button(surf, width, height, label,x, y, selected):
     """Botão centralizado. Se selecionado, coloca '>' na frente."""

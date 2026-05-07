@@ -1,7 +1,7 @@
 # audio_manager.py  (raiz do projeto, ao lado do main.py)
 import random
 import pygame
-import config.variables as variables
+import config.Variables as variables
 
 MUSIC_END = pygame.USEREVENT + 1
 _queue:        list[str] = []

@@ -1,20 +1,20 @@
 import pygame
 import math
-import game.audio.audio_manager as audio_manager
+import game.audio.Audio_manager as audio_manager
 
 from engine.render.SetPixel import setPixel
 from engine.geometry.Bresenham import bresenham
 from engine.render.ScanlineFill import scanline_fill
 from engine.geometry.Circle import fill_circle
 
-from engine.HUD.text import draw_text
-from engine.HUD.button import draw_floodfill_button
+from engine.HUD.Text import draw_text
+from engine.HUD.Button import draw_floodfill_button
 
-import config.variables as variables
+import config.Variables as variables
 
-from config.constants import DARKEST, DARK, LIGHT, LIGHTEST
+from config.Constants import DARKEST, DARK, LIGHT, LIGHTEST
 
-from game.scene_manager.scene import Scene
+from game.scene_manager.Scene import Scene
 
 class MenuScene(Scene):
     def __init__(self, manager):

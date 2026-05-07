@@ -1,12 +1,11 @@
 import pygame
-import game.audio.audio_manager as audio_manager
+import game.audio.Audio_manager as audio_manager
 
-from engine.HUD.text import draw_text
-from engine.render.LoadMatrix import load_png_matrix, draw_sprite
+from loader.LoadMatrix import load_png_matrix, draw_sprite
 
-from config.constants import LIGHTEST
+from config.Constants import LIGHTEST
 
-from game.scene_manager.scene import Scene
+from game.scene_manager.Scene import Scene
 
 class CutsceneScene(Scene):
     def __init__(self, manager):

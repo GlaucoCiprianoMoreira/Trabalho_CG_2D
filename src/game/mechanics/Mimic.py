@@ -1,4 +1,4 @@
-import game.audio.audio_manager as audio_manager
+import game.audio.Audio_manager as audio_manager
 
 from loader.LoadMatrix import draw_sprite
 
