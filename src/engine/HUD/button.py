@@ -1,7 +1,7 @@
-from constants import DARKEST, DARK, LIGHT, LIGHTEST
-from engine.Bresenham import bresenham
-from engine.FloodFill import floodFill
-from engine.ScanlineFill import scanline_fill
+from config.constants import DARKEST, DARK, LIGHT, LIGHTEST
+from engine.geometry.Bresenham import bresenham
+from engine.fill.FloodFill import floodFill
+from engine.render.ScanlineFill import scanline_fill
 
 from engine.HUD.text import draw_text
 

@@ -1,17 +1,15 @@
 import pygame
-import audio_manager
-import global_variables.variables
+import game.audio.audio_manager as audio_manager
+import config.variables as variables
 
-from engine.Circle import fill_circle
+from engine.geometry.Circle import fill_circle
 from engine.HUD.text import draw_text
-from engine.Bresenham import bresenham
+from engine.geometry.Bresenham import bresenham
 from engine.HUD.button import draw_floodfill_button_alt
 from loader.LoadMatrix import load_png_matrix, draw_sprite
 
-from global_variables import variables
-
-from scene_manager.scene import Scene
-from constants import DARKEST, LIGHTEST, DARK, LIGHT
+from game.scene_manager.scene import Scene
+from config.constants import DARKEST, LIGHTEST, DARK, LIGHT
 
 
 class DeathScene(Scene):

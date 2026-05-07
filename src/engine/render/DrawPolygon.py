@@ -1,4 +1,4 @@
-from engine.Bresenham import bresenham
+from engine.geometry.Bresenham import bresenham
 
 def drawPolygon(surface, points, color):
     n = len(points)

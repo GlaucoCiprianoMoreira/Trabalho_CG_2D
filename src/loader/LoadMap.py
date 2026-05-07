@@ -2,10 +2,10 @@ import pygame
 import random
 
 from .LoadMatrix import load_png_matrix, draw_sprite
-from constants import load_tiles
-from mechanics.Ore import Ore
-from mechanics.Chest import Chest
-from mechanics.Mimic import Mimic
+from config.constants import load_tiles
+from game.mechanics.Ore import Ore
+from game.mechanics.Chest import Chest
+from game.mechanics.Mimic import Mimic
 
 # ID=2 representa o minério
 levels = [

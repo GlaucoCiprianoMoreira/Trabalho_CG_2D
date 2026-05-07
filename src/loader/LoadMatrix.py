@@ -1,7 +1,7 @@
 import pygame
 import numpy as np
-from engine.Transformations import scale, apply
-from engine.SetPixel import setPixel
+from engine.render.Transformations import scale, apply
+from engine.render.SetPixel import setPixel
 
 def load_png_matrix(path):
     img = pygame.image.load(path).convert_alpha()

@@ -1,20 +1,20 @@
 import pygame
 import math
-import audio_manager
+import game.audio.audio_manager as audio_manager
 
-from engine.SetPixel import setPixel
-from engine.Bresenham import bresenham
-from engine.ScanlineFill import scanline_fill
-from engine.Circle import fill_circle
+from engine.render.SetPixel import setPixel
+from engine.geometry.Bresenham import bresenham
+from engine.render.ScanlineFill import scanline_fill
+from engine.geometry.Circle import fill_circle
 
 from engine.HUD.text import draw_text
 from engine.HUD.button import draw_floodfill_button
 
-from global_variables import config
+import config.variables as variables
 
-from constants import DARKEST, DARK, LIGHT, LIGHTEST
+from config.constants import DARKEST, DARK, LIGHT, LIGHTEST
 
-from scene_manager.scene import Scene
+from game.scene_manager.scene import Scene
 
 class MenuScene(Scene):
     def __init__(self, manager):
@@ -51,7 +51,7 @@ class MenuScene(Scene):
                         self.manager.go_to("cutscene")
                     # BOTÃO DE SOUND ON/OFF
                     else:
-                        audio_manager.set_sound_on(not config.sound_on)
+                        audio_manager.set_sound_on(not variables.sound_on)
 
                 elif self.n_button == 1:
                     # BOTÃO DE CONFIG
@@ -60,7 +60,7 @@ class MenuScene(Scene):
                         self.n_button = 0
                     # BOTÃO DE MUSIC ON/OFF
                     else:
-                        audio_manager.set_music_on(not config.music_on)
+                        audio_manager.set_music_on(not variables.music_on)
 
                 elif self.n_button == 0:
                     # BOTÃO DE QUIT
@@ -152,11 +152,11 @@ class MenuScene(Scene):
 
         # Botões: redesenhados todo frame (estado de seleção muda)
         if self.open_config:
-            if config.sound_on:
+            if variables.sound_on:
                 sound_status = "EFFECT ON"
             else:
                 sound_status = "EFFECT OFF"
-            if config.music_on:
+            if variables.music_on:
                 music_status = "MUSIC ON"
             else:
                 music_status = "MUSIC OFF"

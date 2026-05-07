@@ -1,4 +1,4 @@
-from engine.SetPixel import setPixel
+from engine.render.SetPixel import setPixel
 
 def bresenham(surface, x0, y0, x1, y1, color):
     steep = abs(y1 - y0) > abs(x1 - x0)

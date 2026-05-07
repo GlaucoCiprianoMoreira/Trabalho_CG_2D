@@ -1,9 +1,9 @@
 import pygame
 
-from global_variables import variables
+import config.variables as variables
 
-import audio_manager
-from mechanics.Physics import check_grid_collision, check_aabb_collision
+import game.audio.audio_manager as audio_manager
+from game.mechanics.Physics import check_grid_collision, check_aabb_collision
 from loader.LoadMap import levels
 
 class Player:

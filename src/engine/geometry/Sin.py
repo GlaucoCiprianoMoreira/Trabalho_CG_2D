@@ -1,4 +1,4 @@
-from engine.SetPixel import setPixel
+from engine.render.SetPixel import setPixel
 import math
 
 def drawSin(surface, height, width, color):

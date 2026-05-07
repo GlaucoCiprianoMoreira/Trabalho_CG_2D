@@ -1,4 +1,4 @@
-from engine.SetPixel import setPixel
+from engine.render.SetPixel import setPixel
 
 def midpointEllipse(surface, xc, yc, rx, ry, color):
     x = 0

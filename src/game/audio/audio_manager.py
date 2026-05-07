@@ -1,7 +1,7 @@
 # audio_manager.py  (raiz do projeto, ao lado do main.py)
 import random
 import pygame
-from global_variables import config
+import config.variables as variables
 
 MUSIC_END = pygame.USEREVENT + 1
 _queue:        list[str] = []
@@ -107,7 +107,7 @@ def play_music(name: str, loop: bool = True):
 
     _current_music = name
 
-    if not config.music_on:
+    if not variables.music_on:
         return
 
     _start_track(f"assets/audio/music/{name}.ogg", loop)
@@ -144,7 +144,7 @@ def _play_next_in_queue():
     name           = _queue.pop(0)
     _current_music = name
 
-    if not config.music_on:
+    if not variables.music_on:
         return
 
     _start_track(f"assets/audio/music/{name}.ogg", loop=False)  # sem loop — o evento MUSIC_END cuida da próxima
@@ -183,7 +183,7 @@ def set_music_on(value: bool):
     Liga ou desliga a música mantendo o estado de qual faixa
     deveria estar tocando.
     """
-    config.music_on = value
+    variables.music_on = value
     if value and _current_music:
         if _queue_source:
             # estava em fila — retoma a faixa atual
@@ -203,7 +203,7 @@ def play_sfx(name: str, ui: bool = False):
     Respeita config.sound_on.
     Vários SFX podem tocar ao mesmo tempo (mixer aloca canais).
     """
-    if not config.sound_on:
+    if not variables.sound_on:
         return
     sound = _sfx.get(name)
     if not sound:
@@ -219,7 +219,7 @@ def play_sfx(name: str, ui: bool = False):
 
 def set_sound_on(value: bool):
     """Chamado quando o usuário altera config.sound_on no menu."""
-    config.sound_on = value
+    variables.sound_on = value
     if not value:
         # Para todos os canais de SFX imediatamente
         pygame.mixer.stop()
@@ -243,7 +243,7 @@ def set_sfx_volume(vol: float):
 # steps
 def play_steps():
     """Inicia o loop de passos se ainda não estiver tocando."""
-    if not config.sound_on:
+    if not variables.sound_on:
         return
     sound = _sfx.get("steps")
     if sound and not _step_channel.get_busy():   # só inicia se não estiver tocando

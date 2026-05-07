@@ -1,4 +1,4 @@
-from engine.SetPixel import setPixel
+from engine.render.SetPixel import setPixel
 
 def scanline_fill(surface, points, filling_color):
     # Encontra Y mínimo e máximo
