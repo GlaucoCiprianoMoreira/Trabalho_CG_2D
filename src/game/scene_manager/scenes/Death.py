@@ -16,14 +16,12 @@ class DeathScene(Scene):
     def __init__(self, manager):
         self.manager = manager
         
-        # Carrega o sprite do jogador olhando para frente
         self.player_sprite = load_png_matrix("assets/sprites/player/player_frente1.png")
         
-        # Inicia no novo estado de espera
         self.state = "waiting"
         self.timer = 0.0
         
-        self.light_radius = 24.0 # Começa no tamanho original da lamparina
+        self.light_radius = 24.0
         
         self.player_x = 72 
         self.player_y = 64 
@@ -37,7 +35,6 @@ class DeathScene(Scene):
         audio_manager.stop_music()
         audio_manager.play_sfx('game_over')
         
-        # Reseta as variáveis de animação
         self.state = "waiting"
         self.timer = 0.03
         
@@ -77,7 +74,7 @@ class DeathScene(Scene):
                 self.state = "fading"
                 
         elif self.state == "fading":
-            self.light_radius -= 180.0 * dt # Velocidade que a luz apaga
+            self.light_radius -= 180.0 * dt
             if self.light_radius <= 0:
                 self.light_radius = 0
                 self.state = "falling" 

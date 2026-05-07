@@ -54,7 +54,6 @@ class GameplayScene(Scene):
         self.chests = []
         self.mimics = []
         audio_manager.play_music_queue(['moss-lit-caverns', 'quest', 'resonance'])
-        #Matriz mapping dos triggers
         self.trigger_map = [[0 for _ in range(len(self.level[0]))] for _ in range(len(self.level))]
         self.level, self.ores, self.traps, self.chests, self.mimics, self.trigger_map = check_ore_trap_chest_tiles(
             self.level, self.ores, self.traps, self.trigger_map, self.ore_sprite, self.chest_sprites, self.mimic_sprites
@@ -95,11 +94,10 @@ class GameplayScene(Scene):
         elif trigger_id == 4:
             self.manager.go_to("victory")
 
-        # --- LÓGICA DE INTERAÇÃO ---
         if self.player.is_mining:
-            self.player.is_mining = False # Consome o input
+            self.player.is_mining = False
             fx, fy = self.player.get_facing_point()
-            #Checa Ores
+
             for ore in self.ores:
                 if (ore.x <= fx <= ore.x + 16) and (ore.y <= fy <= ore.y + 16):
                     ore.hit()
@@ -107,20 +105,20 @@ class GameplayScene(Scene):
                         self.ores.remove(ore)
                         self.crystals.append(Crystal(ore.x, ore.y+4))
                     break
-            # Checa Baús
+
             for chest in self.chests:
                 if (chest.x <= fx <= chest.x + 16) and (chest.y <= fy <= chest.y + 16):
                     chest.interact()
                     audio_manager.play_sfx('chest_open')
-            # Checa Mimics
+                    
             for mimic in self.mimics:
                 if (mimic.x <= fx <= mimic.x + 16) and (mimic.y <= fy <= mimic.y + 16):
                     mimic.interact()
                     audio_manager.play_sfx('chest_mimic')
         
-        # --- UPDATES DAS ENTIDADES DINÂMICAS ---
         for ore in self.ores:
             ore.update(dt)
+
         for crystal in self.crystals[:]:
             crystal.update(dt)
             if crystal.check_collection(self.player.x, self.player.y):
@@ -129,19 +127,19 @@ class GameplayScene(Scene):
                 self.popup.trigger(f"PEGOU {single_crystal} MINERIOS!")
                 audio_manager.play_sfx('colect')
                 self.crystals.remove(crystal)
+
         for chest in self.chests:
             old_state = chest.state
             chest.update(dt)
-            # Acabou de abrir neste frame exato?
             if old_state == "opening" and chest.state == "opened":
                 ganho = random.randint(1, 5)
                 variables.inventory_ore += ganho
                 audio_manager.play_sfx('colect')
                 self.popup.trigger(f"PEGOU {ganho} MINERIOS!")
+
         for mimic in self.mimics:
             old_state = mimic.state
             mimic.update(dt)
-            # Acabou de atacar neste frame exato?
             if old_state == "attacking" and mimic.state == "revealed":
                 self.player.take_damage()
         self.popup.update(dt)
@@ -171,8 +169,8 @@ class GameplayScene(Scene):
             crystal.draw(screen, camera_x, camera_y)
         if self.player.is_visible:
             current_sprite = self.player.get_current_sprite()
-            centro_x = int((self.GAME_W / 2) - 8) # Subtrai metade da largura do sprite para centralizar
-            centro_y = int((self.GAME_H / 2) - 8) # Subtrai metade da altura do sprite para centralizar
+            centro_x = int((self.GAME_W / 2) - 8)
+            centro_y = int((self.GAME_H / 2) - 8)
             draw_sprite(screen, current_sprite, centro_x, centro_y)
         apply_darkness(screen)
         self.player_viewport.draw(screen, current_sprite)

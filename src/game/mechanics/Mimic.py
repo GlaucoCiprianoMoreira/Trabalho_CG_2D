@@ -7,10 +7,10 @@ class Mimic:
         self.x = x
         self.y = y
         self.sprites = sprites
-        self.state = "hidden" # hidden, attacking, revealed
+        self.state = "hidden"
         self.frame = 0
         self.anim_timer = 0.0
-        self.anim_speed = 0.004 # Rápido!
+        self.anim_speed = 0.004
         
     def interact(self):
         if self.state == "hidden":
@@ -24,7 +24,7 @@ class Mimic:
                 self.frame += 1
                 if self.frame >= len(self.sprites) - 1:
                     self.frame = len(self.sprites) - 1
-                    self.state = "revealed" # Terminou a mordida
+                    self.state = "revealed"
 
     def draw(self, screen, camera_x, camera_y):
         screen_x = int(self.x - camera_x)

@@ -22,15 +22,12 @@ def draw_sprite(surface, matrix, posX, posY):
     surf_w = surface.get_width()
     surf_h = surface.get_height()
 
-    # CLIPPING DE CAIXA: Define onde começar e onde terminar de ler a matriz (NÃO É O CLIPPING PASSADO EM AULA).
     start_x = max(0, -posX)
     start_y = max(0, -posY)
     
-    # Se o sprite ultrapassar a largura da tela, paramos de ler antes do final dele.
     end_x = min(w, surf_w - posX)
     end_y = min(h, surf_h - posY)
 
-    # Agora o loop só roda nos pixels que ESTÃO GARANTIDAMENTE DENTRO da tela!
     for y in range(start_y, end_y):
         for x in range(start_x, end_x):
             color = matrix[y][x]
@@ -41,7 +38,6 @@ def draw_sprite(surface, matrix, posX, posY):
             setPixel(surface, posX + x, posY + y, color)
 
 def draw_sprite_transformed(surface, matrix, posX, posY, scale_factor):
-    """ Desenha um sprite aplicando a matriz geométrica de escala via Mapeamento Inverso """
     if scale_factor <= 0:
         return
 

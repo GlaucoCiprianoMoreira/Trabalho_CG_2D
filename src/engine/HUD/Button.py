@@ -6,7 +6,6 @@ from engine.render.ScanlineFill import scanline_fill
 from engine.HUD.Text import draw_text
 
 def draw_floodfill_button(surf, width, height, label,x, y, selected):
-    """Botão centralizado. Se selecionado, coloca '>' na frente."""
     color     = LIGHT if selected else DARKEST
     scale     = 1
     
@@ -24,7 +23,6 @@ def draw_floodfill_button(surf, width, height, label,x, y, selected):
     draw_text(surf, label, x, y-2, color, scale=scale, mode="center")
 
 def draw_floodfill_button_alt(surf, width, height, label,x, y, selected):
-    """Botão centralizado. Se selecionado, coloca '>' na frente."""
     color     = LIGHT if selected else DARKEST
     scale     = 1
 
@@ -42,7 +40,6 @@ def draw_floodfill_button_alt(surf, width, height, label,x, y, selected):
     draw_text(surf, label, x, y-2, color, scale=scale, mode="center")
 
 def draw_floodfill_button_alt_alt(surf, width, height, label,x, y, selected):
-    """Botão centralizado. Se selecionado, coloca '>' na frente."""
     color     = LIGHTEST if selected else DARKEST
     scale     = 1
 
@@ -60,7 +57,6 @@ def draw_floodfill_button_alt_alt(surf, width, height, label,x, y, selected):
     draw_text(surf, label, x, y-2, color, scale=scale, mode="center")
     
 def draw_scanline_button(surf, width, height, label,x, y, selected):
-    """Botão centralizado. Se selecionado, coloca '>' na frente."""
     color     = LIGHTEST if selected else LIGHT
     scale     = 1
     

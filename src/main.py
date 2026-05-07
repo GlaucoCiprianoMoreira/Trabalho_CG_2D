@@ -1,4 +1,3 @@
-import sys
 import pygame
 import game.audio.Audio_manager as audio_manager
 

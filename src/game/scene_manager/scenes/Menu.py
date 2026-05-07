@@ -46,59 +46,40 @@ class MenuScene(Scene):
             if event.key in (pygame.K_RETURN, pygame.K_SPACE):
                 audio_manager.play_sfx('click', ui=True)
                 if self.n_button == 2:
-                    # BOTÃO DE PLAY
                     if not self.open_config:
                         self.manager.go_to("cutscene")
-                    # BOTÃO DE SOUND ON/OFF
                     else:
                         audio_manager.set_sound_on(not variables.sound_on)
 
                 elif self.n_button == 1:
-                    # BOTÃO DE CONFIG
                     if not self.open_config:
                         self.open_config = True
                         self.n_button = 0
-                    # BOTÃO DE MUSIC ON/OFF
                     else:
                         audio_manager.set_music_on(not variables.music_on)
 
                 elif self.n_button == 0:
-                    # BOTÃO DE QUIT
                     if not self.open_config:
                         pygame.quit()
                         quit()
-                    # BOTÃO DE BACK
                     else:
                         self.n_button = 1
                         self.open_config = False
 
-
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-
     def _draw_gradient(self, surf, cx=80, cy=72, max_r=70):
-        """
-        Gradiente radial verdadeiro: cada pixel tem sua cor
-        calculada individualmente pela distância ao centro.
-        
-        t = 0.0 → centro (mais claro)
-        t = 1.0 → borda  (mais escuro)
-        """
-        PALETTE = [LIGHTEST, LIGHT, DARK, DARKEST]  # claro → escuro
-        n = len(PALETTE) - 1                        # 3 intervalos entre 4 cores
+        PALETTE = [LIGHTEST, LIGHT, DARK, DARKEST]
+        n = len(PALETTE) - 1
 
         max_r = 70 + 2*math.sin(self.t)
 
         for y in range(144):
             for x in range(160):
                 dist = ((x - cx) ** 2 + (y - cy) ** 2) ** 0.5
-                t    = min(dist / max_r, 1.0)       # normaliza: 0=centro, 1+=borda
-                idx  = round(t * n)                 # mapeia para o índice da paleta
+                t    = min(dist / max_r, 1.0)
+                idx  = round(t * n)
                 setPixel(surf, x, y, PALETTE[idx])
 
     def _draw_stalactites(self, surf):
-        """Alguns triângulos no topo — decoração de caverna."""
         points = [
             [[20,   0],   [40,  50]],
             [[40,  50],   [60,   0]],
@@ -128,11 +109,6 @@ class MenuScene(Scene):
                 x = xc + math.sin(self.t * dir * 1 + 5) * 2 + math.cos(self.t * 1.5) * 3
                 y = yc + math.cos(self.t * dir * 2 + 5) * 4
                 fill_circle(surf, int(x), int(y), r, LIGHTEST)
-            
-
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
 
     def draw(self, screen):
         self.dt = self.clock.tick(60) / 1000
@@ -147,10 +123,9 @@ class MenuScene(Scene):
         self._draw_airbone_dust(screen, 140, 40, 5, mode=2)
         self._draw_airbone_dust(screen, 115, 80, 2, mode=1, dir=-1)
         self._draw_airbone_dust(screen, 40, 65, 6, mode=2, dir=-1)
-        # Título
+        
         draw_text(screen, "cave game", 80, 5, LIGHTEST, scale=2, mode="center")
 
-        # Botões: redesenhados todo frame (estado de seleção muda)
         if self.open_config:
             if variables.sound_on:
                 sound_status = "EFFECT ON"

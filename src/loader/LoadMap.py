@@ -7,7 +7,6 @@ from game.mechanics.Ore import Ore
 from game.mechanics.Chest import Chest
 from game.mechanics.Mimic import Mimic
 
-# ID=2 representa o minério
 levels = [
     [
         [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
@@ -54,7 +53,6 @@ def draw_level(surface, level, tiles, camera_x, camera_y):
 
             sprite = tiles[tile]
 
-            #Converte as coordenadas do mundo para coordenadas da tela
             screen_x = int((x * TILE_SIZE) - camera_x)
             screen_y = int((y * TILE_SIZE) - camera_y)
 

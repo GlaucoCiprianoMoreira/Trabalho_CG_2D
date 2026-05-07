@@ -1,5 +1,3 @@
-import game.audio.Audio_manager as audio_manager
-
 from loader.LoadMatrix import draw_sprite
 
 class Chest:
@@ -7,7 +5,7 @@ class Chest:
         self.x = x
         self.y = y
         self.sprites = sprites
-        self.state = "closed" # closed, opening, opened
+        self.state = "closed"
         self.frame = 0
         self.anim_timer = 0.0
         self.anim_speed = 0.005
@@ -24,7 +22,7 @@ class Chest:
                 self.frame += 1
                 if self.frame >= len(self.sprites) - 1:
                     self.frame = len(self.sprites) - 1
-                    self.state = "opened" # Terminou de abrir
+                    self.state = "opened"
 
     def draw(self, screen, camera_x, camera_y):
         screen_x = int(self.x - camera_x)

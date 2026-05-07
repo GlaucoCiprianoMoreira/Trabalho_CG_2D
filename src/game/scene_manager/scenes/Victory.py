@@ -1,5 +1,4 @@
 import pygame
-import math
 import game.audio.Audio_manager as audio_manager
 
 from engine.geometry.Circle import fill_circle
@@ -18,11 +17,9 @@ class VictoryScene(Scene):
         self.state = "waiting"
         self.timer = 0.0
         
-        # Variáveis da animação do círculo
         self.circle_radius = 0
         self.max_radius = 110
         
-        # Variáveis dos Créditos
         self.credits_y = 150
         self.credits_speed = 250.0
         self.credits_text = [
@@ -39,18 +36,16 @@ class VictoryScene(Scene):
             "GUILHERME"
         ]
         
-        # Variáveis dos Botões
         self.n_button = 1
         self.clock = pygame.Clock()
 
     def on_enter(self):
-        # Para a música da caverna e pode tocar um tema de vitória aqui
         audio_manager.stop_steps()
         audio_manager.stop_music()
         audio_manager.play_sfx('game_win')
 
         self.state = "waiting"
-        self.timer = 0.01 # 0.01 segundo de delay inicial
+        self.timer = 0.01
         self.circle_radius = 0
         self.credits_y = 150
         self.n_button = 1
@@ -64,7 +59,7 @@ class VictoryScene(Scene):
             elif self.state == "selection":
                 if event.type == pygame.KEYDOWN:
                     if event.key in (pygame.K_w, pygame.K_UP, pygame.K_s, pygame.K_DOWN):
-                        self.n_button = 1 - self.n_button # Alterna entre 0 e 1
+                        self.n_button = 1 - self.n_button
                         audio_manager.play_sfx('select', ui=True)
 
                     if event.key in (pygame.K_RETURN, pygame.K_SPACE):
@@ -82,7 +77,7 @@ class VictoryScene(Scene):
                 self.state = "transition"
 
         elif self.state == "transition":
-            self.circle_radius += 320 * dt # Velocidade da expansão
+            self.circle_radius += 320 * dt
             if self.circle_radius >= self.max_radius:
                 self.circle_radius = self.max_radius
                 self.state = "credits"

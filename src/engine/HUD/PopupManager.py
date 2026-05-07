@@ -1,22 +1,19 @@
 from engine.HUD.Text import draw_text
 
 class PopupManager:
-    """Gerencia a máquina de estados e o desenho de popups de texto na tela."""
     def __init__(self):
-        self.state = "idle" # idle, delay, fade_in, show, fade_out
+        self.state = "idle"
         self.timer = 0.0
         self.text = ""
         self.alpha = 0.0
 
     def trigger(self, text, delay=0.02):
-        """Inicia um novo popup."""
         self.text = text
         self.state = "delay"
         self.timer = delay
         self.alpha = 0.0
 
     def update(self, dt):
-        """Processa a máquina de estados e o cálculo matemático do alpha."""
         if self.state == "idle":
             return
 
@@ -44,7 +41,6 @@ class PopupManager:
                 self.alpha = 0.0
 
     def draw(self, surface, center_x, y, color):
-        """Chama o draw_text se o popup estiver visível."""
         if self.state not in ["idle", "delay"]:
             draw_text(
                 surface, 

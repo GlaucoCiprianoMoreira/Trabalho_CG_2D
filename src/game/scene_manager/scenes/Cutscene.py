@@ -22,7 +22,6 @@ class CutsceneScene(Scene):
         pass
     
     def handle_event(self, event):
-        #n_frame = 0
         if event.type == pygame.KEYDOWN:
             if event.key in (pygame.K_SPACE, pygame.K_RETURN) and self.n_frame > 0:
                 self.n_frame = 0

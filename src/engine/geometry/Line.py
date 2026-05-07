@@ -1,14 +1,12 @@
 from engine.render.SetPixel import setPixel
 
 def reta_ingenua(surface, x0, y0, x1, y1, color):
-    # Garantir x crescente
     if x0 > x1:
         x0, x1 = x1, x0
         y0, y1 = y1, y0
 
     dx = x1 - x0
 
-    # Evita divisão por zero (reta vertical não é tratada aqui)
     if dx == 0:
         return
 

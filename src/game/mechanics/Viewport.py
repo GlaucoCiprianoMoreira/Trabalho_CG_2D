@@ -4,12 +4,6 @@ from config.Constants import DARKEST, LIGHTEST
 
 class PlayerViewport:
     def __init__(self, size: int = 20, margin: int = 4, screen_w: int = 160, padding: int = 3):
-        """
-        size    : lado do quadrado da viewport em pixels
-        margin  : distância da borda da tela
-        screen_w: largura da superfície de jogo
-        padding : espaço interno entre a borda da viewport e o sprite
-        """
         self.size = size
         self.margin = margin
         self.screen_w = screen_w
@@ -23,10 +17,9 @@ class PlayerViewport:
 
     def draw(self, screen: pygame.Surface, player_sprite) -> None:
         size = self.size
-        ox = self.x  # offset X da viewport na tela
-        oy = self.y  # offset Y da viewport na tela
+        ox = self.x
+        oy = self.y
 
-        # --- fundo: preenche o quadrado pixel a pixel ---
         bg_rect = pygame.Rect(ox, oy, size, size)
         pygame.draw.rect(screen, self.color_bg, bg_rect)
 

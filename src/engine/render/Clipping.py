@@ -4,7 +4,6 @@ RIGHT = 2
 BOTTOM = 4
 TOP = 8
 
-
 def compute_code(x, y, xmin, ymin, xmax, ymax):
     code = INSIDE
     if x < xmin:
@@ -16,7 +15,6 @@ def compute_code(x, y, xmin, ymin, xmax, ymax):
     elif y > ymax:
         code |= TOP
     return code
-
 
 def cohen_sutherland_clip(x1, y1, x2, y2, xmin, ymin, xmax, ymax):
     code1 = compute_code(x1, y1, xmin, ymin, xmax, ymax)

@@ -1,8 +1,4 @@
 def check_grid_collision(x, y, hitbox_w, hitbox_h, offset_x, offset_y, level):
-    """
-    Verifica se uma hitbox genérica colide com os blocos sólidos do mapa.
-    Pode ser usada por jogadores, inimigos ou projéteis.
-    """
     TILE_SIZE = 16
     
     left = x + offset_x
@@ -25,10 +21,6 @@ def check_grid_collision(x, y, hitbox_w, hitbox_h, offset_x, offset_y, level):
     return False
 
 def check_trigger(x, y, hitbox_w, hitbox_h, offset_x, offset_y, trigger_map):
-    """
-    Verifica colisões de área entre a hitbox do jogador e zonas específicas de blocos.
-    Retorna o ID do bloco (ex: ID da porta, espinho) ou None.
-    """
     TILE_SIZE = 16
 
     px = x + offset_x
@@ -76,17 +68,11 @@ def check_trigger(x, y, hitbox_w, hitbox_h, offset_x, offset_y, trigger_map):
 
 
 def check_interaction(x, y, hitbox_w, hitbox_h, offset_x, offset_y, direction, interact_map):
-    """
-    Projeta um ponto à frente do jogador baseado na direção que ele olha.
-    Usado quando o jogador aperta um botão de ação (Enter/Espaço).
-    """
     TILE_SIZE = 16
     
-    # Começa no centro da Hitbox
     target_x = x + offset_x + (hitbox_w / 2)
     target_y = y + offset_y + (hitbox_h / 2)
     
-    # Empurra o ponto de checagem 1 bloco inteiro para a frente
     if direction == "up":
         target_y -= TILE_SIZE
     elif direction == "down":
@@ -101,17 +87,12 @@ def check_interaction(x, y, hitbox_w, hitbox_h, offset_x, offset_y, direction, i
     
     if 0 <= row < len(interact_map) and 0 <= col < len(interact_map[0]):
         tile_id = interact_map[row][col]
-        # Assumindo que IDs entre 20 e 30 são coisas interativas (ex: 21=Placa, 22=Baú)
         if tile_id >= 20:
             return tile_id
             
     return None
 
 def check_aabb_collision(px, py, pw, ph, ox, oy, ow, oh):
-    """
-    Verifica matematicamente a intersecção entre dois retângulos AABB.
-    P = Player, O = Objeto (Minério)
-    """
     if (px < ox + ow) and (px + pw > ox) and (py < oy + oh) and (py + ph > oy):
         return True
     return False
