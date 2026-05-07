@@ -150,6 +150,8 @@ class GameplayScene(Scene):
         camera_y = (self.player.y + 6) - (self.GAME_H / 2)
         draw_level(screen, self.level, self.tiles, camera_x, camera_y)
 
+        current_sprite = self.player.get_current_sprite()
+
         for trap_x, trap_y in self.traps:
             screen_x = int(trap_x - camera_x)
             screen_y = int(trap_y - camera_y)
@@ -162,13 +164,13 @@ class GameplayScene(Scene):
             ore.draw(screen, camera_x, camera_y)
         for crystal in self.crystals:
             crystal.draw(screen, camera_x, camera_y)
-        apply_darkness(screen)
         if self.player.is_visible:
             current_sprite = self.player.get_current_sprite()
             centro_x = int((self.GAME_W / 2) - 8)
             centro_y = int((self.GAME_H / 2) - 8)
             draw_sprite(screen, current_sprite, centro_x, centro_y)
-            self.player_viewport.draw(screen, current_sprite)
+        apply_darkness(screen)
+        self.player_viewport.draw(screen, current_sprite)
         self.load_HUD(screen)
         text_x = self.GAME_W / 2
         text_y = self.GAME_H - 20 
