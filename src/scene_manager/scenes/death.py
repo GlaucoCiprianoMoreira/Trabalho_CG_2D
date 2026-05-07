@@ -1,5 +1,6 @@
 import pygame
 import audio_manager
+import global_variables.variables
 
 from engine.Circle import fill_circle
 from engine.HUD.text import draw_text
@@ -35,6 +36,8 @@ class DeathScene(Scene):
 
     def on_enter(self):
         audio_manager.stop_steps()
+        audio_manager.stop_music()
+        audio_manager.play_sfx('game_over')
         
         # Reseta as variáveis de animação
         self.state = "waiting"
@@ -67,6 +70,7 @@ class DeathScene(Scene):
                         self.manager.go_to("gameplay")
                     else:
                         self.manager.go_to("menu")
+                    variables.health = 3
 
     def update(self, dt):
         if self.state == "waiting":

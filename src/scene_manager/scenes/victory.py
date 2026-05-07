@@ -46,6 +46,9 @@ class VictoryScene(Scene):
     def on_enter(self):
         # Para a música da caverna e pode tocar um tema de vitória aqui
         audio_manager.stop_steps()
+        audio_manager.stop_music()
+        audio_manager.play_sfx('game_win')
+
         self.state = "waiting"
         self.timer = 0.01 # 0.01 segundo de delay inicial
         self.circle_radius = 0
@@ -70,6 +73,7 @@ class VictoryScene(Scene):
                             self.manager.go_to("gameplay")
                         else:
                             self.manager.go_to("menu")
+                        variables.health = 3
 
     def update(self, dt):
         if self.state == "waiting":
@@ -84,6 +88,7 @@ class VictoryScene(Scene):
                 self.state = "credits"
 
         elif self.state == "credits":
+            audio_manager.play_music('kokiri-forest--the-end')
             self.credits_y -= self.credits_speed * dt
             if self.credits_y < -(len(self.credits_text) * 12):
                 self.state = "selection"
