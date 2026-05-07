@@ -66,7 +66,7 @@ class GameplayScene(Scene):
 
     def update(self, dt):
         keys = pygame.key.get_pressed()
-        self.player.update(dt, keys, self.level)
+        solid_entities = self.ores + self.chests + self.mimics
         self.player.update(dt, keys, self.level, solid_entities)
         if self.player.health <= 0:
             self.manager.go_to("dead") #DAVID: Trocar para a cena de morte quando ela for implementada
@@ -112,7 +112,9 @@ class GameplayScene(Scene):
         for crystal in self.crystals[:]:
             crystal.update(dt)
             if crystal.check_collection(self.player.x, self.player.y):
-                inventory.inventory_ore += 1
+                single_crystal = 3
+                inventory.inventory_ore += single_crystal
+                self.popup.trigger(f"PEGOU {single_crystal} MINERIOS!")
                 self.crystals.remove(crystal)
                 audio_manager.play_sfx('colect')
         for chest in self.chests:
@@ -135,15 +137,13 @@ class GameplayScene(Scene):
     def draw(self, screen):
         screen.fill((0, 0, 0))
         camera_x = (self.player.x + 8) - (self.GAME_W / 2)
-        camera_y = (self.player.y + 8) - (self.GAME_H / 2)
+        camera_y = (self.player.y + 6) - (self.GAME_H / 2)
         draw_level(screen, self.level, self.tiles, camera_x, camera_y)
 
         current_sprite = self.player.get_current_sprite()
         centro_x = int((self.GAME_W / 2) - 8)
         centro_y = int((self.GAME_H / 2) - 8)
-        draw_sprite(screen, current_sprite, centro_x, centro_y)
 
-        self.player_viewport.draw(screen, current_sprite)
         for trap_x, trap_y in self.traps:
             screen_x = int(trap_x - camera_x)
             screen_y = int(trap_y - camera_y)
@@ -162,6 +162,7 @@ class GameplayScene(Scene):
             centro_y = int((self.GAME_H / 2) - 8) # Subtrai metade da altura do sprite para centralizar
             draw_sprite(screen, current_sprite, centro_x, centro_y)
         apply_darkness(screen)
+        self.player_viewport.draw(screen, current_sprite)
         text_x = self.GAME_W / 2
         text_y = self.GAME_H - 20 
         self.popup.draw(screen, text_x, text_y, LIGHTEST)
