@@ -53,4 +53,5 @@ def load_tiles():
     return {
         0: load_png_matrix("assets/sprites/floor/floor_01.png"),
         1: load_png_matrix("assets/sprites/rock/rock_01.png"),
+        4: load_png_matrix("assets/sprites/door/door.png"),
     }

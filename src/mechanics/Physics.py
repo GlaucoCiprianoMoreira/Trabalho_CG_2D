@@ -61,10 +61,16 @@ def check_trigger(x, y, hitbox_w, hitbox_h, offset_x, offset_y, trigger_map):
                         
                         if (px < tile_x + TILE_SIZE - side_tolerance) and (px + pw > tile_x + side_tolerance):
                             if (py + ph > tile_y + up_tolerance) and (py < tile_y + TILE_SIZE - down_tolerance):
-                                return tile_id
-                            
+                                return tile_id      
                     else:
                         return tile_id
+                elif tile_id == 4:
+                    tile_x = col * TILE_SIZE
+                    tile_y = row * TILE_SIZE
+                    
+                    if (px >= tile_x) and (px + pw <= tile_x + TILE_SIZE) and \
+                    (py >= tile_y) and (py + ph <= tile_y + TILE_SIZE):
+                        return tile_id  
                         
     return None
 
