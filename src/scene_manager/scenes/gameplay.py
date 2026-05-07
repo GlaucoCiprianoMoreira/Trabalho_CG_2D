@@ -81,7 +81,7 @@ class GameplayScene(Scene):
             self.trigger_map
         )
         if trigger_id == 11 and self.player.invincible_timer <= 0:
-            self.player.health = 0 #DAVID: Trocar para a cena de morte quando ela for implementada
+            self.player.health = 0
 
         # --- LÓGICA DE INTERAÇÃO ---
         if self.player.is_mining:
