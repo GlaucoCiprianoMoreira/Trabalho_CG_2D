@@ -1,13 +1,13 @@
 import sys
 import pygame
-import game.audio.audio_manager as audio_manager
+import game.audio.Audio_manager as audio_manager
 
-from game.scene_manager.scene_manager import SceneManager
-from game.scene_manager.scenes.menu import MenuScene
-from game.scene_manager.scenes.gameplay import GameplayScene
-from game.scene_manager.scenes.cutscene import CutsceneScene
-from game.scene_manager.scenes.victory import VictoryScene
-from game.scene_manager.scenes.death import DeathScene
+from game.scene_manager.Scene_manager import SceneManager
+from game.scene_manager.scenes.Menu import MenuScene
+from game.scene_manager.scenes.Gameplay import GameplayScene
+from game.scene_manager.scenes.Cutscene import CutsceneScene
+from game.scene_manager.scenes.Victory import VictoryScene
+from game.scene_manager.scenes.Death import DeathScene
 
 class Game:
     def __init__(self):

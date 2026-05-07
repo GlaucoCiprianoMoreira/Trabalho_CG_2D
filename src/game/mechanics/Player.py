@@ -1,10 +1,9 @@
 import pygame
 
-import config.variables as variables
+import config.Variables as variables
 
-import game.audio.audio_manager as audio_manager
+import game.audio.Audio_manager as audio_manager
 from game.mechanics.Physics import check_grid_collision, check_aabb_collision
-from loader.LoadMap import levels
 
 class Player:
     def __init__(self, start_x, start_y, sprites_dict):

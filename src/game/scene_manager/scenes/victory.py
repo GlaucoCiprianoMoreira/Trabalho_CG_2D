@@ -1,15 +1,15 @@
 import pygame
 import math
-import game.audio.audio_manager as audio_manager
+import game.audio.Audio_manager as audio_manager
 
 from engine.geometry.Circle import fill_circle
-from engine.HUD.text import draw_text
-from engine.HUD.button import draw_floodfill_button_alt_alt
+from engine.HUD.Text import draw_text
+from engine.HUD.Button import draw_floodfill_button_alt_alt
 
-import config.variables as variables
+import config.Variables as variables
 
-from game.scene_manager.scene import Scene
-from config.constants import LIGHTEST, DARKEST, DARK
+from game.scene_manager.Scene import Scene
+from config.Constants import LIGHTEST, DARKEST, DARK
 
 class VictoryScene(Scene):
     def __init__(self, manager):

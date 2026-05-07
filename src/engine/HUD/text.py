@@ -1,5 +1,5 @@
 from engine.render.SetPixel import setPixel
-from config.constants import FONT
+from config.Constants import FONT
 
 def get_text_width(text: str, scale=1):
     width = 0

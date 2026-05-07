@@ -1,5 +1,5 @@
 from engine.render.SetPixel import setPixel
-from config.constants import DARKEST
+from config.Constants import DARKEST
 
 DARKNESS_PIXELS = []
 CENTER_X = 80

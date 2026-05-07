@@ -1,5 +1,5 @@
 import pygame
-from config.constants import DARKEST, LIGHTEST
+from config.Constants import DARKEST, LIGHTEST
 
 
 class PlayerViewport:
