@@ -1,3 +1,5 @@
+import audio_manager
+
 from loader.LoadMatrix import draw_sprite
 
 class Mimic:

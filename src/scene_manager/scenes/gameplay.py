@@ -10,7 +10,7 @@ from mechanics.Player import Player
 from mechanics.Viewport import PlayerViewport
 from mechanics.Ore import Ore
 from engine.Crystal import Crystal
-from global_variables import inventory
+from global_variables import variables
 from mechanics.Physics import check_trigger
 from engine.HUD.text import draw_text
 from engine.HUD.PopupManager import PopupManager
@@ -64,11 +64,16 @@ class GameplayScene(Scene):
     def handle_event(self, event):
         pass
 
+    def load_HUD(self, screen):
+        draw_text(screen, '<' + str(variables.health), 3, 3, LIGHTEST, 2)
+        draw_text(screen, '$' + str(variables.inventory_ore), 33, 3, LIGHTEST, 2)
+
     def update(self, dt):
         keys = pygame.key.get_pressed()
         solid_entities = self.ores + self.chests + self.mimics
         self.player.update(dt, keys, self.level, solid_entities)
-        if self.player.health <= 0:
+
+        if variables.health <= 0:
             self.manager.go_to("dead") #DAVID: Trocar para a cena de morte quando ela for implementada
 
         trigger_id = check_trigger(
@@ -81,7 +86,7 @@ class GameplayScene(Scene):
             self.trigger_map
         )
         if trigger_id == 11 and self.player.invincible_timer <= 0:
-            self.player.health = 0 #DAVID: Trocar para a cena de morte quando ela for implementada
+            variables.health = 0
 
         # --- LÓGICA DE INTERAÇÃO ---
         if self.player.is_mining:
@@ -113,17 +118,18 @@ class GameplayScene(Scene):
             crystal.update(dt)
             if crystal.check_collection(self.player.x, self.player.y):
                 single_crystal = 3
-                inventory.inventory_ore += single_crystal
+                variables.inventory_ore += single_crystal
                 self.popup.trigger(f"PEGOU {single_crystal} MINERIOS!")
-                self.crystals.remove(crystal)
                 audio_manager.play_sfx('colect')
+                self.crystals.remove(crystal)
         for chest in self.chests:
             old_state = chest.state
             chest.update(dt)
             # Acabou de abrir neste frame exato?
             if old_state == "opening" and chest.state == "opened":
                 ganho = random.randint(1, 5)
-                inventory.inventory_ore += ganho
+                variables.inventory_ore += ganho
+                audio_manager.play_sfx('colect')
                 self.popup.trigger(f"PEGOU {ganho} MINERIOS!")
         for mimic in self.mimics:
             old_state = mimic.state
@@ -163,6 +169,7 @@ class GameplayScene(Scene):
             draw_sprite(screen, current_sprite, centro_x, centro_y)
         apply_darkness(screen)
         self.player_viewport.draw(screen, current_sprite)
+        self.load_HUD(screen)
         text_x = self.GAME_W / 2
         text_y = self.GAME_H - 20 
         self.popup.draw(screen, text_x, text_y, LIGHTEST)
