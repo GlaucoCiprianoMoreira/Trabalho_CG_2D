@@ -12,7 +12,7 @@ class CutsceneScene(Scene):
     def __init__(self, manager):
         self.manager = manager
         self.n_frame = 0
-        self.time_frame = [2000, 1400, 2000, 1000, 1000, 1000, 3000, 1000, 4000]
+        self.time_frame = [4000, 2800, 4000, 2000, 2000, 2000, 6000, 2000, 8000]
         self.last_time = 0
         self.clock = pygame.time.Clock()
     

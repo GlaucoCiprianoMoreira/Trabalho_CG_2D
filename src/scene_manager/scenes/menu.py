@@ -153,16 +153,16 @@ class MenuScene(Scene):
         # Botões: redesenhados todo frame (estado de seleção muda)
         if self.open_config:
             if config.sound_on:
-                sound_status = "SOUND ON"
+                sound_status = "EFFECT ON"
             else:
-                sound_status = "SOUND OFF"
+                sound_status = "EFFECT OFF"
             if config.music_on:
                 music_status = "MUSIC ON"
             else:
                 music_status = "MUSIC OFF"
-            draw_floodfill_button(screen, 60, 10, sound_status, 80, 85,  self.n_button == 2)
-            draw_floodfill_button(screen, 60, 10, music_status, 80, 100,  self.n_button == 1)
-            draw_floodfill_button(screen, 60, 10, "BACK", 80, 115,  self.n_button == 0)
+            draw_floodfill_button(screen, 70, 10, sound_status, 80, 85,  self.n_button == 2)
+            draw_floodfill_button(screen, 70, 10, music_status, 80, 100,  self.n_button == 1)
+            draw_floodfill_button(screen, 70, 10, "BACK", 80, 115,  self.n_button == 0)
         else:
             draw_floodfill_button(screen, 40, 10, "PLAY", 80, 85,  self.n_button == 2)
             draw_floodfill_button(screen, 40, 10, "CONFIG", 80, 100,  self.n_button == 1)
