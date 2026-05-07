@@ -7,6 +7,8 @@ from engine.Bresenham import bresenham
 from engine.HUD.button import draw_floodfill_button_alt
 from loader.LoadMatrix import load_png_matrix, draw_sprite
 
+from global_variables import variables
+
 from scene_manager.scene import Scene
 from constants import DARKEST, LIGHTEST, DARK, LIGHT
 
@@ -103,5 +105,8 @@ class DeathScene(Scene):
             screen.fill(DARKEST)
             draw_text(screen, "VOCE MORREU", 80, 30, LIGHTEST, scale=1, mode="center")
 
-            draw_floodfill_button_alt(screen, 95, 12, "JOGAR NOVAMENTE", 80, 70, self.n_button == 1)
-            draw_floodfill_button_alt(screen, 115, 12, "VOLTAR PARA O MENU", 80, 95, self.n_button == 0)
+            ore_text = f"${variables.inventory_ore} MINERIOS"
+            draw_text(screen, ore_text, 80, 50, LIGHTEST, scale=1, mode="center")
+
+            draw_floodfill_button_alt(screen, 95, 12, "JOGAR NOVAMENTE", 80, 90, self.n_button == 1)
+            draw_floodfill_button_alt(screen, 115, 12, "VOLTAR PARA O MENU", 80, 110, self.n_button == 0)

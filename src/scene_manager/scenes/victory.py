@@ -6,6 +6,8 @@ from engine.Circle import fill_circle
 from engine.HUD.text import draw_text
 from engine.HUD.button import draw_floodfill_button_alt_alt
 
+from global_variables import variables
+
 from scene_manager.scene import Scene
 from constants import LIGHTEST, DARKEST, DARK
 
@@ -22,7 +24,7 @@ class VictoryScene(Scene):
         
         # Variáveis dos Créditos
         self.credits_y = 150
-        self.credits_speed = 200.0
+        self.credits_speed = 250.0
         self.credits_text = [
             "PARABENS JOGADOR",
             "POR TER FINALIZADO O JOGO!",
@@ -101,6 +103,9 @@ class VictoryScene(Scene):
 
         if self.state == "selection":
             draw_text(screen, "FIM DE JOGO", 80, 30, DARK, scale=1, mode="center")
+
+            ore_text = f"${variables.inventory_ore} MINERIOS"
+            draw_text(screen, ore_text, 80, 50, DARKEST, scale=1, mode="center")
             
-            draw_floodfill_button_alt_alt(screen, 80, 12, "JOGAR DE NOVO", 80, 70, self.n_button == 1)
-            draw_floodfill_button_alt_alt(screen, 90, 12, "VOLTAR AO MENU", 80, 95, self.n_button == 0)
+            draw_floodfill_button_alt_alt(screen, 80, 12, "JOGAR DE NOVO", 80, 90, self.n_button == 1)
+            draw_floodfill_button_alt_alt(screen, 90, 12, "VOLTAR AO MENU", 80, 110, self.n_button == 0)
