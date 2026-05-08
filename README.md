@@ -87,13 +87,17 @@ Explore a caverna, colete minérios quebrando rochas e encontre a porta de saíd
 
 ---
 
+<div align="center">
+
 ## Vídeo de Demonstração
 
-[![demo](https://i.pinimg.com/736x/4e/0b/15/4e0b1590ca50077314a238de9b514065.jpg)](https://youtu.be/dQw4w9WgXcQ?si=UZS7bNuZoT9GPsNt)
+[![demo](assets/readme/menu_cover.png)](https://www.youtube.com/watch?v=1Pw7r0RtE-Y)
 
-🎥 **Meu Jogo — Trailer Oficial**  
-📺 YouTube  
-⏱️ 2 min 31 s
+🎥 **Cave Game**  
+📺 YouTube
+⏱️ 2 min 32 s
+
+</div>
 
 ---
 
