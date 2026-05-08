@@ -1,3 +1,4 @@
+![intro](assets/readme/intro.png)
 # CAVE GAME
 
 Jogo arcade 2D desenvolvido como trabalho da disciplina de Computação Gráfica.
