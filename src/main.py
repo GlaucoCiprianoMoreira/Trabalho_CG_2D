@@ -2,6 +2,7 @@ import pygame
 import game.audio.Audio_manager as audio_manager
 
 from game.scene_manager.Scene_manager import SceneManager
+from game.scene_manager.scenes.Opening import OpeningScene
 from game.scene_manager.scenes.Menu import MenuScene
 from game.scene_manager.scenes.Gameplay import GameplayScene
 from game.scene_manager.scenes.Cutscene import CutsceneScene
@@ -19,13 +20,14 @@ class Game:
         self.screen = pygame.Surface((GAME_W, GAME_H))
 
         self.manager = SceneManager()
+        self.manager.register("opening",  OpeningScene(self.manager))
         self.manager.register("menu",     MenuScene(self.manager))
         self.manager.register("cutscene", CutsceneScene(self.manager))
         self.manager.register("gameplay", GameplayScene(self.manager))
-        self.manager.register("victory", VictoryScene(self.manager))
-        self.manager.register("death", DeathScene(self.manager))
+        self.manager.register("victory",  VictoryScene(self.manager))
+        self.manager.register("death",    DeathScene(self.manager))
 
-        self.manager.go_to("menu")
+        self.manager.go_to("opening")
 
         self.clock = pygame.time.Clock()
 
