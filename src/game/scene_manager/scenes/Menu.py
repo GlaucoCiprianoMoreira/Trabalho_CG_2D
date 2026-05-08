@@ -128,17 +128,17 @@ class MenuScene(Scene):
 
         if self.open_config:
             if variables.sound_on:
-                sound_status = "EFFECT ON"
+                sound_status = "EFEITO ON"
             else:
-                sound_status = "EFFECT OFF"
+                sound_status = "EFEITO OFF"
             if variables.music_on:
-                music_status = "MUSIC ON"
+                music_status = "MUSICA ON"
             else:
-                music_status = "MUSIC OFF"
+                music_status = "MUSICA OFF"
             draw_floodfill_button(screen, 70, 10, sound_status, 80, 85,  self.n_button == 2)
             draw_floodfill_button(screen, 70, 10, music_status, 80, 100,  self.n_button == 1)
-            draw_floodfill_button(screen, 70, 10, "BACK", 80, 115,  self.n_button == 0)
+            draw_floodfill_button(screen, 70, 10, "VOLTAR", 80, 115,  self.n_button == 0)
         else:
-            draw_floodfill_button(screen, 40, 10, "PLAY", 80, 85,  self.n_button == 2)
+            draw_floodfill_button(screen, 40, 10, "JOGAR", 80, 85,  self.n_button == 2)
             draw_floodfill_button(screen, 40, 10, "CONFIG", 80, 100,  self.n_button == 1)
-            draw_floodfill_button(screen, 40, 10, "QUIT", 80,  115, self.n_button == 0)
+            draw_floodfill_button(screen, 40, 10, "SAIR", 80,  115, self.n_button == 0)
