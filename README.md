@@ -47,6 +47,46 @@ Explore a caverna, colete minérios quebrando rochas e encontre a porta de saíd
 
 ---
 
+## Características do Jogo
+
+### Mapa:
+* Renderização baseada em matrizes, unindo diversos sprites de ambiente para formar o cenário.
+
+### Física do Jogo:
+* Sistema de colisões com tiles sólidas e triggers de posição para gerenciar as interações do jogador.
+
+### Mineração:
+* O jogador pode quebrar blocos de minérios brutos pelo mapa, liberando recursos coletáveis ao passar por cima.
+
+### Baú:
+* Objetos interativos espalhados pela caverna que concedem de 1 a 5 minérios ao serem abertos.
+
+### Mimic:
+* Monstro disfarçado de baú que surpreende o jogador ao tentar interagir, causando 1 ponto de dano.
+
+### Animação Abertura:
+* Transição que simula a queda do jogador para dentro da escuridão da caverna..
+
+### Animação de Morte:
+* O personagem dá um salto e cai para fora da tela enquanto um círculo de luz se fecha, simulando a lamparina apagando.
+
+### Animação de Vitória:
+* Uma luz se expande rapidamente a partir do centro, revelando os créditos e o menu final em um fundo claro.
+
+### Jogo separado em Cenas:
+* Arquitetura que divide o projeto em estados independentes (Abertura, Menu, Cutscene, Gameplay, Morte e Vitória) para organização lógica do código.
+
+### Texto em BitMap:
+* Renderização de fontes customizada construída pixel a pixel via matrizes, substituindo o motor de texto nativo da engine.
+
+### Viewport:
+* Mini-tela que exibe um espelho em tempo real e ampliado do sprite atual do jogador, com borda iluminada.
+
+### Controlador de Áudio:
+* Gerenciador centralizado responsável pela execução de toda a trilha sonora e efeitos sonoros.
+
+---
+
 ## Vídeo de Demonstração
 
 [![demo](https://i.pinimg.com/736x/4e/0b/15/4e0b1590ca50077314a238de9b514065.jpg)](https://youtu.be/dQw4w9WgXcQ?si=UZS7bNuZoT9GPsNt)
